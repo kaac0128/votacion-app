@@ -13,7 +13,10 @@ import {
   CheckCircle,
   Crown,
   Door,
+  HandFist,
+  HandPointing,
   Lightning,
+  Ticket,
   Trophy,
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -32,10 +35,32 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
   const { c } = await searchParams;
   const user = await getUser();
   if (!user) {
+    const features = [
+      {
+        icon: <Ticket weight="fill" className="h-5 w-5 text-secondary" />,
+        title: "Salas por código",
+        desc: "Creás la sala, compartís el código y todos entran en segundos.",
+      },
+      {
+        icon: <HandPointing weight="fill" className="h-5 w-5 text-secondary" />,
+        title: "Votación por categorías",
+        desc: "Un voto por categoría, con descripciones generadas por IA.",
+      },
+      {
+        icon: <Trophy weight="fill" className="h-5 w-5 text-secondary" />,
+        title: "Revelación en vivo",
+        desc: "Los puntos suben en tiempo real, estilo Kahoot, con coronita animada.",
+      },
+      {
+        icon: <HandFist weight="fill" className="h-5 w-5 text-secondary" />,
+        title: "Desempates jugados",
+        desc: "Empataron? Piedra, papel o tijera dentro de la app. Que gane el mejor.",
+      },
+    ];
     return (
-      <>
+      <div className="flex w-full flex-col items-center gap-14 text-center">
         {c && (
-          <p className="text-sm text-subtle">
+          <p className="rounded-xl border border-line/50 bg-card px-5 py-3 text-sm text-subtle">
             Te invitaron a una sala con el código <b className="text-secondary">{c}</b>.{" "}
             <Link href={`/login?c=${encodeURIComponent(c)}`} className="text-secondary underline">
               Entrá
@@ -47,22 +72,37 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
             para unirte.
           </p>
         )}
-        <p className="text-lg text-subtle">Votá, apostá y coroná al ganador.</p>
-        <div className="flex gap-4">
-          <Link
-            href="/login"
-            className="rounded-lg bg-primary px-5 py-2.5 font-semibold text-white transition-colors hover:bg-primary-hover"
-          >
-            Entrar
-          </Link>
-          <Link
-            href="/register"
-            className="rounded-lg border border-zinc-700 px-5 py-2.5 font-semibold transition-colors hover:bg-card-hover"
-          >
-            Crear cuenta
-          </Link>
+        <div className="flex flex-col items-center gap-6">
+          <p className="max-w-2xl text-xl text-body sm:text-2xl">
+            La apuesta de los premios entre amigos:{" "}
+            <span className="text-secondary">votá quién gana</span>, clavá tu predicción y
+            <span className="text-secondary"> coroná al que más acierta</span>.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/register"
+              className="rounded-lg bg-primary px-8 py-3.5 font-semibold text-white transition-colors hover:bg-primary-hover"
+            >
+              Crear cuenta gratis
+            </Link>
+            <Link
+              href="/login"
+              className="rounded-lg border border-zinc-700 px-8 py-3.5 font-semibold transition-colors hover:bg-card-hover"
+            >
+              Ya tengo cuenta
+            </Link>
+          </div>
         </div>
-      </>
+        <div className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {features.map((f) => (
+            <div key={f.title} className="flex flex-col gap-2 rounded-xl border border-zinc-800 bg-card p-5 text-left">
+              {f.icon}
+              <h3 className="font-semibold text-body">{f.title}</h3>
+              <p className="text-sm text-subtle">{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     );
   }
 
@@ -154,7 +194,7 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
 
 export default function Home({ searchParams }: { searchParams: Promise<{ c?: string }> }) {
   return (
-    <div className="flex w-full max-w-6xl flex-1 flex-col gap-10 self-center px-6 pt-10 pb-24 sm:px-8">
+    <div className="flex w-full max-w-6xl flex-1 flex-col gap-14 self-center justify-center px-6 pt-16 pb-28 sm:px-8">
       <AppLogo />
       <Suspense fallback={<p className="text-sm text-subtle">Cargando...</p>}>
         <RoomsArea searchParams={searchParams} />

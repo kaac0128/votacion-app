@@ -1,3 +1,5 @@
+export const instant = false;
+
 import { Suspense } from "react";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";

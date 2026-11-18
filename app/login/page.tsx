@@ -1,3 +1,5 @@
+export const instant = false;
+
 import { Suspense } from "react";
 import AppLogo from "@/components/app-logo";
 import AuthForm from "@/components/auth-form";

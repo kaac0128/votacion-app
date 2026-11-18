@@ -1,3 +1,5 @@
+export const instant = false;
+
 import { Suspense } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -7,6 +9,8 @@ import { pool } from "@/lib/db";
 import LogoutButton from "@/components/logout-button";
 import { CreateRoomForm, JoinRoomForm } from "@/components/room-forms";
 import {
+  ArrowRight,
+  CheckCircle,
   Crown,
   Door,
   Lightning,
@@ -15,7 +19,7 @@ import {
 
 const STATUS_BADGE: Record<string, { icon: React.ReactNode; label: string; cls: string }> = {
   open: { icon: <Lightning weight="fill" className="h-3 w-3" />, label: "Abierta", cls: "text-emerald-400" },
-  results: { icon: <Trophy weight="fill" className="h-3 w-3" />, label: "Resultados", cls: "text-zinc-100" },
+  results: { icon: <Trophy weight="fill" className="h-3 w-3" />, label: "Resultados", cls: "text-accent" },
   closed: { icon: <Door weight="fill" className="h-3 w-3" />, label: "Cerrada", cls: "text-subtle" },
 };
 
@@ -47,13 +51,13 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
         <div className="flex gap-4">
           <Link
             href="/login"
-            className="rounded-lg bg-zinc-100 px-5 py-2.5 font-semibold text-zinc-900 transition-colors hover:bg-white"
+            className="rounded-lg bg-primary px-5 py-2.5 font-semibold text-white transition-colors hover:bg-primary-hover"
           >
             Entrar
           </Link>
           <Link
             href="/register"
-            className="rounded-lg border border-primary/40 px-5 py-2.5 font-semibold transition-colors hover:bg-card-hover"
+            className="rounded-lg border border-zinc-700 px-5 py-2.5 font-semibold transition-colors hover:bg-card-hover"
           >
             Crear cuenta
           </Link>
@@ -88,41 +92,39 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
   );
 
   return (
-    <div className="flex w-full max-w-4xl flex-col items-center gap-6">
-      <p className="text-lg text-subtle">
-        Hola, <span className="font-semibold text-body">{user.name}</span>
-      </p>
-
-      <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:items-start sm:justify-center">
-        <CreateRoomForm />
-        <JoinRoomForm />
-      </div>
-
-      <div className="w-full max-w-sm">
-        <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-secondary">Mis salas</h2>
+    <div className="grid w-full gap-10 lg:grid-cols-[1fr_340px] lg:items-start">
+      <section className="flex flex-col gap-5">
+        <h2 className="border-b border-line/50 pb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+          Mis salas ({rows.length})
+        </h2>
         {rows.length === 0 ? (
           <p className="text-sm text-subtle">
             Todavía no estás en ninguna sala. Creá una o entrá con un código.
           </p>
         ) : (
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-3">
             {rows.map((room) => {
               const badge = STATUS_BADGE[room.status];
               return (
                 <li key={room.id}>
                   <Link
                     href={`/rooms/${room.id}`}
-                    className="flex items-center justify-between gap-3 rounded-xl border border-line/50 bg-card px-4 py-3 transition-all hover:border-primary "
+                    className="flex items-center justify-between gap-4 rounded-xl border border-zinc-800 bg-card px-5 py-4 transition-colors hover:border-primary"
                   >
-                    <span className="flex flex-col text-left">
-                      <span className="flex items-center gap-1.5 font-semibold">
-                        {room.is_admin && <span title="Sos el admin"><Crown weight="fill" className="h-4 w-4 text-amber-400" /></span>}
+                    <span className="flex min-w-0 flex-col gap-1">
+                      <span className="flex items-center gap-2 font-semibold">
+                        {room.is_admin && (
+                          <span title="Sos el admin" className="flex shrink-0">
+                            <Crown weight="fill" className="h-4 w-4 text-amber-400" />
+                          </span>
+                        )}
                         {room.title}
                       </span>
                       <span className="text-xs text-subtle">{formatDate(room.deadline)}</span>
                     </span>
-                    <span className={`flex items-center gap-1 text-xs whitespace-nowrap ${badge?.cls ?? ""}`}>
+                    <span className={`flex shrink-0 items-center gap-1.5 rounded-full border border-line/50 px-3 py-1.5 text-xs ${badge?.cls ?? ""}`}>
                       {badge?.icon} {badge?.label ?? room.status}
+                      <ArrowRight weight="bold" className="h-3 w-3" />
                     </span>
                   </Link>
                 </li>
@@ -130,16 +132,29 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
             })}
           </ul>
         )}
-      </div>
+      </section>
 
-      <LogoutButton />
+      <aside className="flex flex-col gap-5 lg:sticky lg:top-8">
+        <div className="flex items-center justify-between lg:hidden">
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Acciones</h2>
+        </div>
+        <CreateRoomForm />
+        <JoinRoomForm />
+        <div className="flex items-center justify-between gap-3 rounded-xl border border-zinc-800 bg-card px-4 py-3">
+          <span className="flex items-center gap-2 text-sm">
+            <CheckCircle weight="fill" className="h-4 w-4 text-emerald-400" />
+            {user.name}
+          </span>
+          <LogoutButton />
+        </div>
+      </aside>
     </div>
   );
 }
 
 export default function Home({ searchParams }: { searchParams: Promise<{ c?: string }> }) {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-6 px-6 pt-16 pb-24 text-center">
+    <div className="flex w-full max-w-6xl flex-1 flex-col gap-10 self-center px-6 pt-10 pb-24 sm:px-8">
       <AppLogo />
       <Suspense fallback={<p className="text-sm text-subtle">Cargando...</p>}>
         <RoomsArea searchParams={searchParams} />

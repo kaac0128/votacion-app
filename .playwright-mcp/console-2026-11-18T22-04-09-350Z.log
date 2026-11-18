@@ -1,0 +1,258 @@
+[     275ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[     315ms] [LOG] [HMR] connected @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[    1661ms] [ERROR] Error: Route "/": Next.js encountered the unstable value `Date.now()` while prerendering.
+
+This value can change between renders, so it must be either prerendered or computed later.
+
+Ways to fix this:
+  - [dynamic] Render at request time by adding a dynamic data access (e.g. `await connection()`) before this call
+  - [cache] Prerender and cache the value with `"use cache"`
+  - [client] Render the value on the client with `"use client"`
+  - [measure] If the value is for telemetry, use a timing API such as `performance.now()`
+
+Learn more: https://nextjs.org/docs/messages/blocking-prerender-current-time
+    at verifyToken (about://React/Server/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__0l6j2cbm5qpbe._.js?54:215:67)
+    at getUser (about://React/Server/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__0l6j2cbm5qpbe._.js?55:228:21)
+    at RoomsArea (about://React/Server/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__133b_tglishpl._.js?56:122:18)
+    at Home (about://React/Server/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__133b_tglishpl._.js?57:464:278)
+    at resolveErrorDev (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2029:105)
+    at getOutlinedModel (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:1568:28)
+    at parseModelString (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:1688:50)
+    at reviveModel (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2634:66)
+    at reviveModel (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2637:61)
+    at reviveModel (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2716:112)
+    at parseModel (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2629:16)
+    at initializeModelChunk (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:1141:25)
+    at resolveModelChunk (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:1039:43)
+    at processFullStringRow (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2585:371)
+    at processFullBinaryRow (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2507:9)
+    at processBinaryChunk (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2614:221)
+    at progress (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2801:13) @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:1037
+[   33465ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   33480ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   33585ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   33676ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   33701ms] [ERROR] %o
+
+%s TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.connection) is not a function
+    at getUser (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%255Broot-of-the-server%255D__0l6j2cbm5qpbe._.js?id=%255Bproject%255D/lib/auth.ts+%255Bapp-rsc%255D+(ecmascript)?59:71:157)
+    at RoomsArea (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__133b_tglishpl._.js?60:122:147)
+    at resolveErrorDev (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2029:150)
+    at processFullStringRow (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2548:29)
+    at processFullBinaryRow (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2507:9)
+    at processBinaryChunk (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2614:221)
+    at progress (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2801:13) The above error occurred in the <RoomsArea> component. It was handled by the <ErrorBoundaryHandler> error boundary. @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_client_1ohys4wzsw--s._.js:17474
+[   33780ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   33861ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   33954ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34033ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34114ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34194ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34279ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34360ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34433ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34515ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34592ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34668ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34748ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34830ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34905ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   34996ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35071ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35149ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35227ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35301ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35383ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35457ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35534ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35616ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35696ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35782ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35859ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   35936ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36012ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36095ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36170ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36249ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36327ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36403ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36474ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36550ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36625ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36701ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36787ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36866ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   36935ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37020ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37099ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37181ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37265ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37338ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37418ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37491ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37565ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37648ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37728ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37799ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37869ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   37949ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38031ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38102ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38187ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38267ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38340ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38415ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38492ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38566ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38636ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38711ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38793ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38865ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   38951ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39027ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39118ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39192ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39279ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39362ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39448ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39537ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39618ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39696ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39781ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39864ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   39953ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   40035ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   40124ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   40226ms] [LOG] [Fast Refresh] done in 19ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   51890ms] [ERROR] WebSocket connection to 'ws://localhost:3311/_next/hmr?id=6QqKo7lcFjuzoXdxiD2hz' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_client_1ohys4wzsw--s._.js:16430
+[   53503ms] [LOG] [HMR] connected @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   57695ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   57728ms] [LOG] [HMR] connected @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   57825ms] [ERROR] %o
+
+%s TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.connection) is not a function
+    at getUser (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__0l6j2cbm5qpbe._.js?0:227:157)
+    at RoomsArea (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__133b_tglishpl._.js?1:122:147)
+    at resolveErrorDev (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2029:105)
+    at processFullStringRow (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2548:29)
+    at processFullBinaryRow (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2507:9)
+    at processBinaryChunk (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2614:221)
+    at progress (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2801:13) The above error occurred in the <RoomsArea> component. It was handled by the <ErrorBoundaryHandler> error boundary. @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_client_1ohys4wzsw--s._.js:17474
+[   59040ms] [ERROR] %o
+
+%s TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.connection) is not a function
+    at getUser (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__0l6j2cbm5qpbe._.js?0:227:157)
+    at RoomsArea (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__133b_tglishpl._.js?1:122:147)
+    at resolveErrorDev (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2029:105)
+    at processFullStringRow (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2548:29)
+    at processFullBinaryRow (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2507:9)
+    at processBinaryChunk (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2614:221)
+    at progress (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2801:13) The above error occurred in the <RoomsArea> component. It was handled by the <ErrorBoundaryHandler> error boundary. @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_client_1ohys4wzsw--s._.js:17474
+[   60079ms] [ERROR] %o
+
+%s TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.connection) is not a function
+    at getUser (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__0l6j2cbm5qpbe._.js?0:227:157)
+    at RoomsArea (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__133b_tglishpl._.js?1:122:147)
+    at resolveErrorDev (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2029:105)
+    at processFullStringRow (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2548:29)
+    at processFullBinaryRow (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2507:9)
+    at processBinaryChunk (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2614:221)
+    at progress (http://localhost:3311/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js:2801:13) The above error occurred in the <RoomsArea> component. It was handled by the <ErrorBoundaryHandler> error boundary. @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_client_1ohys4wzsw--s._.js:17474
+[   83032ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   83040ms] [LOG] [Fast Refresh] done in 83ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   83080ms] [LOG] [Fast Refresh] done in 83ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   83136ms] [LOG] [Fast Refresh] done in 83ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   83200ms] [LOG] [Fast Refresh] done in 83ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[   83228ms] Error: Switched to client rendering because the server rendering errored:
+
+(0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.connection) is not a function
+    at getUser (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__0l6j2cbm5qpbe._.js?19:227:157)
+    at RoomsArea (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__133b_tglishpl._.js?20:122:147)
+    at resolveErrorDev (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:2:417548)
+    at processFullStringRow (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:2:438490)
+    at /home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:2:444645
+    at processBinaryChunk (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:2:444728)
+    at Readable.<anonymous> (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:2:456208)
+    at Readable.emit (node:events:514:20)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Object.onChunk (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:52:64972)
+    at Readable.<anonymous> (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:52:63906)
+    at Readable.emit (node:events:514:20)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Object.onChunk (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:52:64972)
+    at PassThrough.<anonymous> (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:52:63906)
+    at PassThrough.emit (node:events:514:20)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at node:internal/streams/transform:178:12
+    at PassThrough._transform (node:internal/streams/passthrough:46:3)
+    at Transform._write (node:internal/streams/transform:171:8)
+    at writeOrBuffer (node:internal/streams/writable:574:12)
+    at _write (node:internal/streams/writable:503:10)
+    at Writable.write (node:internal/streams/writable:512:10)
+    at completeWriting (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:99:51932)
+    at flushCompletedChunks (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:99:153091)
+    at performWork (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:99:148708)
+    at /home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:99:88948
+    at AsyncResource.runInAsyncScope (node:async_hooks:226:14)
+    at bound (node:async_hooks:257:16)
+    at performWork (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/server/node-environment-extensions/fast-set-immediate.external.js:314:13)
+    at /home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/server/node-environment-extensions/fast-set-immediate.external.js:236:24
+    at processTicksAndRejections (node:internal/process/task_queues:85:11)
+    at runNextTicks (node:internal/process/task_queues:69:3)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+[   83229ms] Error: Switched to client rendering because the server rendering errored:
+
+(0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.connection) is not a function
+    at getUser (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__0l6j2cbm5qpbe._.js?19:227:157)
+    at RoomsArea (about://React/Prefetch/file:///home/kaacode/Documentos/GitHub/votacion-app/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__133b_tglishpl._.js?20:122:147)
+    at resolveErrorDev (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:2:417548)
+    at processFullStringRow (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:2:438490)
+    at /home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:2:444645
+    at processBinaryChunk (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:2:444728)
+    at Readable.<anonymous> (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:2:456208)
+    at Readable.emit (node:events:514:20)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Object.onChunk (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:52:64972)
+    at Readable.<anonymous> (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:52:63906)
+    at Readable.emit (node:events:514:20)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Object.onChunk (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:52:64972)
+    at PassThrough.<anonymous> (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:52:63906)
+    at PassThrough.emit (node:events:514:20)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at node:internal/streams/transform:178:12
+    at PassThrough._transform (node:internal/streams/passthrough:46:3)
+    at Transform._write (node:internal/streams/transform:171:8)
+    at writeOrBuffer (node:internal/streams/writable:574:12)
+    at _write (node:internal/streams/writable:503:10)
+    at Writable.write (node:internal/streams/writable:512:10)
+    at completeWriting (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:99:51932)
+    at flushCompletedChunks (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:99:153091)
+    at performWork (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:99:148708)
+    at /home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:99:88948
+    at AsyncResource.runInAsyncScope (node:async_hooks:226:14)
+    at bound (node:async_hooks:257:16)
+    at performWork (/home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/server/node-environment-extensions/fast-set-immediate.external.js:314:13)
+    at /home/kaacode/Documentos/GitHub/votacion-app/node_modules/next/dist/server/node-environment-extensions/fast-set-immediate.external.js:236:24
+    at processTicksAndRejections (node:internal/process/task_queues:85:11)
+    at runNextTicks (node:internal/process/task_queues:69:3)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+[   83230ms] [LOG] [Fast Refresh] done in 83ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[  104633ms] [ERROR] WebSocket connection to 'ws://localhost:3311/_next/hmr?id=CHjo8IPgqUosDo4bO8vIc' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_client_1ohys4wzsw--s._.js:16430
+[  106248ms] [LOG] [HMR] connected @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[  110346ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[  110396ms] [LOG] [HMR] connected @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761

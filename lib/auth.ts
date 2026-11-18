@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
 import { cookies } from "next/headers";
+import { connection } from "next/server";
 
 const AUTH_SECRET = process.env.AUTH_SECRET ?? "";
 if (!AUTH_SECRET) throw new Error("AUTH_SECRET is not set");
@@ -48,6 +49,8 @@ export function verifyToken(token: string): { sub: string; name: string } | null
 
 // Sesión actual desde la cookie httpOnly
 export async function getUser(): Promise<{ id: string; name: string } | null> {
+  // marca la rama como dinámica: sin esto, el prerender valida Date.now() y falla
+  await connection();
   const token = (await cookies()).get("session")?.value;
   if (!token) return null;
   const session = verifyToken(token);

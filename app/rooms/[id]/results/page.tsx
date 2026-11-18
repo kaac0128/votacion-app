@@ -49,11 +49,11 @@ async function ResultsPanel({ roomId }: { roomId: string }) {
   return (
     <div className="flex w-full max-w-3xl flex-col gap-8 px-6 pt-10 pb-24">
       <header>
-        <Link href={`/rooms/${roomId}`} className="text-sm text-zinc-400 hover:underline dark:text-zinc-500">
+        <Link href={`/rooms/${roomId}`} className="text-sm text-subtle transition-colors hover:text-body">
           ← Volver a la sala
         </Link>
         <h1 className="text-2xl font-bold">🏆 Resultados: {room.title}</h1>
-        <p className="text-sm text-zinc-400 dark:text-zinc-500">
+        <p className="text-sm text-subtle">
           {participants} participantes · se necesita {reportsNeeded(participants)} reporte(s) para forzar una corrección · máx 3 correcciones por categoría
         </p>
       </header>
@@ -67,14 +67,14 @@ async function ResultsPanel({ roomId }: { roomId: string }) {
         <ActionButton action={revealNext} fields={{ roomId }} label="🎬 Revelar siguiente" />
         <Link
           href={`/rooms/${roomId}/reveal`}
-          className="self-center text-sm underline text-zinc-500 dark:text-zinc-400"
+          className="self-center text-sm underline text-subtle"
         >
           🎬 Ir a la pantalla de revelación en vivo
         </Link>
       </div>
 
       {categories.length === 0 && (
-        <p className="text-sm text-zinc-400 dark:text-zinc-500">No hay categorías cargadas todavía.</p>
+        <p className="text-sm text-subtle">No hay categorías cargadas todavía.</p>
       )}
 
       <ul className="flex flex-col gap-4">
@@ -87,28 +87,28 @@ async function ResultsPanel({ roomId }: { roomId: string }) {
           const agrees = feedback.find((f) => f.category_id === cat.id && f.attempt === attempt && f.verdict === "agree")?.n ?? "0";
           const dispute = Number(reports) >= reportsNeeded(participants);
           return (
-            <li key={cat.id} className="rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
+            <li key={cat.id} className="rounded-xl border border-zinc-800 bg-card p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h3 className="font-semibold">{cat.name}</h3>
                 <span className="text-xs">
                   {!result ? (
-                    <span className="text-zinc-400 dark:text-zinc-500">sin publicar</span>
+                    <span className="text-subtle">sin publicar</span>
                   ) : final ? (
                     <span className="rounded bg-zinc-200 px-2 py-0.5 dark:bg-zinc-700">FINAL</span>
                   ) : dispute ? (
-                    <span className="rounded bg-red-100 px-2 py-0.5 text-red-700 dark:bg-red-900/40 dark:text-red-300">
-                      ⚠️ EN DISPUTA ({reports}/{reportsNeeded(participants)}) — corrige y republica
+                    <span className="rounded bg-danger/20 px-2 py-0.5 text-danger">
+                      EN DISPUTA ({reports}/{reportsNeeded(participants)}) — corrige y republica
                     </span>
                   ) : (
-                    <span className="text-zinc-400 dark:text-zinc-500">
-                      {result.revealed ? "✅ revelada · " : "🙈 oculta · "}
-                      publicación {attempt} · 👍 {agrees} · 🚩 {reports}
+                    <span className="text-subtle">
+                      {result.revealed ? "revelada · " : "oculta · "}
+                      publicación {attempt} · de acuerdo {agrees} · reportes {reports}
                     </span>
                   )}
                 </span>
               </div>
               {result && (
-                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="mt-1 text-sm text-subtle">
                   Ganador publicado: <b>{items.find((i) => i.id === result.winner_item_id)?.title ?? "?"}</b>
                 </p>
               )}
@@ -122,7 +122,7 @@ async function ResultsPanel({ roomId }: { roomId: string }) {
                   isCorrection={attempt > 0}
                 />
               )}
-              {catItems.length === 0 && <p className="mt-2 text-sm text-zinc-400 dark:text-zinc-500">Sin objetos.</p>}
+              {catItems.length === 0 && <p className="mt-2 text-sm text-subtle">Sin objetos.</p>}
             </li>
           );
         })}
@@ -134,7 +134,7 @@ async function ResultsPanel({ roomId }: { roomId: string }) {
 export default function ResultsPage({ params }: { params: Promise<{ id: string }> }) {
   return (
     <div className="flex flex-1 flex-col items-center">
-      <Suspense fallback={<p className="py-16 text-sm text-zinc-400">Cargando resultados...</p>}>
+      <Suspense fallback={<p className="py-16 text-sm text-subtle">Cargando resultados...</p>}>
         <ResultsInner params={params} />
       </Suspense>
     </div>

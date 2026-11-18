@@ -6,11 +6,17 @@ import { getUser } from "@/lib/auth";
 import { pool } from "@/lib/db";
 import LogoutButton from "@/components/logout-button";
 import { CreateRoomForm, JoinRoomForm } from "@/components/room-forms";
+import {
+  Crown,
+  Door,
+  Lightning,
+  Trophy,
+} from "@phosphor-icons/react/dist/ssr";
 
-const STATUS_LABEL: Record<string, string> = {
-  open: "🟢 Abierta",
-  results: "🏆 Resultados",
-  closed: "🔒 Cerrada",
+const STATUS_BADGE: Record<string, { icon: React.ReactNode; label: string; cls: string }> = {
+  open: { icon: <Lightning weight="fill" className="h-3 w-3" />, label: "Abierta", cls: "text-emerald-400" },
+  results: { icon: <Trophy weight="fill" className="h-3 w-3" />, label: "Resultados", cls: "text-accent" },
+  closed: { icon: <Door weight="fill" className="h-3 w-3" />, label: "Cerrada", cls: "text-subtle" },
 };
 
 function formatDate(d: Date | null): string {
@@ -25,29 +31,29 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
     return (
       <>
         {c && (
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            Te invitaron a una sala con el código <b>{c}</b>.{" "}
-            <Link href={`/login?c=${encodeURIComponent(c)}`} className="underline">
+          <p className="text-sm text-subtle">
+            Te invitaron a una sala con el código <b className="text-secondary">{c}</b>.{" "}
+            <Link href={`/login?c=${encodeURIComponent(c)}`} className="text-secondary underline">
               Entrá
             </Link>{" "}
             o{" "}
-            <Link href={`/register?c=${encodeURIComponent(c)}`} className="underline">
+            <Link href={`/register?c=${encodeURIComponent(c)}`} className="text-secondary underline">
               registrate
             </Link>{" "}
             para unirte.
           </p>
         )}
-        <p className="text-lg text-zinc-500 dark:text-zinc-400">Votá, apostá y coroná al ganador.</p>
+        <p className="text-lg text-subtle">Votá, apostá y coroná al ganador.</p>
         <div className="flex gap-4">
           <Link
             href="/login"
-            className="rounded-lg bg-zinc-900 px-5 py-2 font-medium text-white dark:bg-zinc-100 dark:text-zinc-900"
+            className="rounded-lg bg-primary px-5 py-2.5 font-semibold text-white transition-colors hover:bg-primary-hover"
           >
             Entrar
           </Link>
           <Link
             href="/register"
-            className="rounded-lg border border-zinc-300 px-5 py-2 font-medium dark:border-zinc-700"
+            className="rounded-lg border border-zinc-700 px-5 py-2.5 font-semibold transition-colors hover:bg-card-hover"
           >
             Crear cuenta
           </Link>
@@ -59,7 +65,7 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
   // entrada por link compartible ?c=CODIGO
   if (c) {
     if (!/^[A-Z2-9]{6}$/.test(c.toUpperCase())) {
-      return <p className="text-red-500">Ese código no parece válido.</p>;
+      return <p className="text-danger">Ese código no parece válido.</p>;
     }
     const { rows: found } = await pool.query<{ id: string }>("select id from rooms where code = $1", [c.toUpperCase()]);
     if (found[0]) {
@@ -69,7 +75,7 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
       );
       redirect(`/rooms/${found[0].id}`);
     }
-    return <p className="text-red-500">No existe una sala con el código {c.toUpperCase()}.</p>;
+    return <p className="text-danger">No existe una sala con el código {c.toUpperCase()}.</p>;
   }
 
   const { rows } = await pool.query<{ id: string; title: string; status: string; deadline: Date | null; is_admin: boolean }>(
@@ -83,8 +89,8 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
 
   return (
     <div className="flex w-full max-w-4xl flex-col items-center gap-6">
-      <p className="text-lg text-zinc-500 dark:text-zinc-400">
-        Hola, <span className="font-semibold text-zinc-900 dark:text-zinc-100">{user.name}</span>
+      <p className="text-lg text-subtle">
+        Hola, <span className="font-semibold text-body">{user.name}</span>
       </p>
 
       <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:items-start sm:justify-center">
@@ -93,32 +99,35 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
       </div>
 
       <div className="w-full max-w-sm">
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-          Mis salas
-        </h2>
+        <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-secondary">Mis salas</h2>
         {rows.length === 0 ? (
-          <p className="text-sm text-zinc-400 dark:text-zinc-500">
+          <p className="text-sm text-subtle">
             Todavía no estás en ninguna sala. Creá una o entrá con un código.
           </p>
         ) : (
           <ul className="flex flex-col gap-2">
-            {rows.map((room) => (
-              <li key={room.id}>
-                <Link
-                  href={`/rooms/${room.id}`}
-                  className="flex items-center justify-between gap-3 rounded-xl border border-zinc-200 px-4 py-3 hover:border-zinc-900 dark:border-zinc-800 dark:hover:border-zinc-100"
-                >
-                  <span className="flex flex-col text-left">
-                    <span className="font-semibold">
-                      {room.is_admin && <span title="Sos el admin">👑 </span>}
-                      {room.title}
+            {rows.map((room) => {
+              const badge = STATUS_BADGE[room.status];
+              return (
+                <li key={room.id}>
+                  <Link
+                    href={`/rooms/${room.id}`}
+                    className="flex items-center justify-between gap-3 rounded-xl border border-zinc-800 bg-card px-4 py-3 transition-all hover:border-primary hover:shadow-[0_0_20px_rgba(124,58,237,0.35)]"
+                  >
+                    <span className="flex flex-col text-left">
+                      <span className="flex items-center gap-1.5 font-semibold">
+                        {room.is_admin && <span title="Sos el admin"><Crown weight="fill" className="h-4 w-4 text-amber-400" /></span>}
+                        {room.title}
+                      </span>
+                      <span className="text-xs text-subtle">{formatDate(room.deadline)}</span>
                     </span>
-                    <span className="text-xs text-zinc-400 dark:text-zinc-500">{formatDate(room.deadline)}</span>
-                  </span>
-                  <span className="text-xs whitespace-nowrap">{STATUS_LABEL[room.status] ?? room.status}</span>
-                </Link>
-              </li>
-            ))}
+                    <span className={`flex items-center gap-1 text-xs whitespace-nowrap ${badge?.cls ?? ""}`}>
+                      {badge?.icon} {badge?.label ?? room.status}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>
@@ -132,7 +141,7 @@ export default function Home({ searchParams }: { searchParams: Promise<{ c?: str
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-6 px-6 pt-16 pb-24 text-center">
       <AppLogo />
-      <Suspense fallback={<p className="text-sm text-zinc-400">Cargando...</p>}>
+      <Suspense fallback={<p className="text-sm text-subtle">Cargando...</p>}>
         <RoomsArea searchParams={searchParams} />
       </Suspense>
     </div>

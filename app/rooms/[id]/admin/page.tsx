@@ -46,25 +46,25 @@ async function AdminPanel({ roomId }: { roomId: string }) {
   return (
     <div className="flex w-full max-w-3xl flex-col gap-8 px-6 pt-10 pb-24">
       <header>
-        <Link href={`/rooms/${roomId}`} className="text-sm text-zinc-400 hover:underline dark:text-zinc-500">
+        <Link href={`/rooms/${roomId}`} className="text-sm text-subtle transition-colors hover:text-body">
           ← Volver a la sala
         </Link>
-        <h1 className="text-2xl font-bold">⚙️ Administrar: {room.title}</h1>
+        <h1 className="font-display text-2xl tracking-wide">Administrar: {room.title}</h1>
       </header>
 
       <AiConfigForm roomId={roomId} provider={room.ai_provider} hasKey={Boolean(room.ai_key)} model={room.ai_model} />
 
       <section className="flex flex-col gap-6">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Categorías</h2>
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-subtle">Categorías</h2>
         <AddCategoryForm roomId={roomId} />
 
         {categories.map((cat) => {
           const catItems = items.filter((i) => i.category_id === cat.id);
           return (
-            <div key={cat.id} className="rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
+            <div key={cat.id} className="rounded-xl border border-zinc-800 bg-card p-4">
               <div className="flex items-center justify-between gap-2">
                 <h3 className="font-semibold">
-                  {cat.name} <span className="text-sm font-normal text-zinc-400 dark:text-zinc-500">({catItems.length})</span>
+                  {cat.name} <span className="text-sm font-normal text-subtle">({catItems.length})</span>
                 </h3>
                 <ActionButton
                   action={deleteCategory}
@@ -93,7 +93,7 @@ async function AdminPanel({ roomId }: { roomId: string }) {
 export default function AdminPage({ params }: { params: Promise<{ id: string }> }) {
   return (
     <div className="flex flex-1 flex-col items-center">
-      <Suspense fallback={<p className="py-16 text-sm text-zinc-400">Cargando...</p>}>
+      <Suspense fallback={<p className="py-16 text-sm text-subtle">Cargando...</p>}>
         <AdminPanelInner params={params} />
       </Suspense>
     </div>

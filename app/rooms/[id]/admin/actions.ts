@@ -113,6 +113,46 @@ export async function addCategory(_prev: ActionState, formData: FormData): Promi
   return { ok: `Categoría "${name}" creada` };
 }
 
+// Carga masiva de categorías: una por línea, se agregan todas juntas
+export async function bulkAddCategories(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const roomId = String(formData.get("roomId") ?? "");
+  try {
+    await requireAdmin(roomId);
+  } catch {
+    return { error: "Solo el admin puede hacer eso" };
+  }
+  const names = [...new Set(
+    String(formData.get("names") ?? "")
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(Boolean)
+  )].slice(0, 50);
+  if (names.length === 0) return { error: "Pegá al menos una categoría (una por línea)" };
+  for (const n of names) {
+    if (n.length < 2 || n.length > 40) return { error: `"${n}" no tiene entre 2 y 40 caracteres` };
+  }
+
+  const { rows: existing } = await pool.query<{ name: string }>(
+    "select name from categories where room_id = $1",
+    [roomId]
+  );
+  const taken = new Set(existing.map((r) => r.name.toLowerCase()));
+  const fresh = names.filter((n) => !taken.has(n.toLowerCase()));
+  if (fresh.length === 0) return { error: "Todas esas categorías ya existen" };
+
+  const { rows: last } = await pool.query<{ sort: number }>(
+    "select coalesce(max(sort), 0) as sort from categories where room_id = $1",
+    [roomId]
+  );
+  const values = fresh.map((_, i) => `($1, $${2 + i}, ${last[0].sort + i + 1})`);
+  const params = [roomId, ...fresh];
+  await pool.query(`insert into categories (room_id, name, sort) values ${values.join(", ")}`, params);
+
+  revalidatePath(roomPath(roomId) + "/admin");
+  revalidatePath(roomPath(roomId));
+  return { ok: `${fresh.length} categoría(s) creadas${fresh.length < names.length ? ` (se omitieron ${names.length - fresh.length} duplicadas)` : ""}` };
+}
+
 export async function deleteCategory(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const roomId = String(formData.get("roomId") ?? "");
   const categoryId = String(formData.get("categoryId") ?? "");

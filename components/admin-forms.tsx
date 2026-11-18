@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import {
   addCategory,
   addItem,
+  bulkAddCategories,
   bulkAddItems,
   deleteCategory,
   deleteItem,
@@ -11,22 +12,27 @@ import {
   saveAiConfig,
   type ActionState,
 } from "@/app/rooms/[id]/admin/actions";
+import { GearSix, ListPlus, Plus, Sparkle, Warning } from "@phosphor-icons/react/dist/ssr";
 
 function Msg({ state }: { state: ActionState }) {
   return (
     <>
-      {state?.error && <p className="text-sm text-red-500">{state.error}</p>}
-      {state?.ok && <p className="text-sm text-emerald-500">{state.ok}</p>}
+      {state?.error && (
+        <p className="flex items-center gap-1.5 text-sm text-danger"><Warning weight="fill" className="h-4 w-4" />{state.error}</p>
+      )}
+      {state?.ok && (
+        <p className="flex items-center gap-1.5 text-sm text-emerald-400"><Sparkle weight="fill" className="h-4 w-4" />{state.ok}</p>
+      )}
     </>
   );
 }
 
 const inputCls =
-  "w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-100";
+  "w-full rounded-lg border border-zinc-700 bg-zinc-900/80 px-3 py-2 text-body outline-none transition-colors focus:border-primary";
 const btnCls =
-  "rounded-lg bg-zinc-900 px-4 py-2 font-medium text-white disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900";
+  "inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-hover disabled:opacity-50";
 const smallBtnCls =
-  "rounded-md border border-zinc-300 px-2 py-1 text-xs hover:bg-zinc-100 disabled:opacity-50 dark:border-zinc-700 dark:hover:bg-zinc-800";
+  "inline-flex items-center gap-1 rounded-md border border-zinc-700 px-2 py-1 text-xs text-body transition-colors hover:bg-card-hover disabled:opacity-50";
 
 export function ActionButton({
   action,
@@ -52,7 +58,7 @@ export function ActionButton({
       <button type="submit" disabled={pending} className={smallBtnCls} title={label}>
         {pending ? "..." : label}
       </button>
-      {state?.error && <span className="ml-2 text-xs text-red-500">{state.error}</span>}
+      {state?.error && <span className="ml-2 text-xs text-danger">{state.error}</span>}
     </form>
   );
 }
@@ -60,14 +66,42 @@ export function ActionButton({
 export function AddCategoryForm({ roomId }: { roomId: string }) {
   const [state, action, pending] = useActionState(addCategory, null);
   return (
-    <form action={action} className="flex items-start gap-2">
-      <input type="hidden" name="roomId" value={roomId} />
-      <input name="name" placeholder="Nueva categoría (ej: GOTY)" required minLength={2} maxLength={40} className={inputCls} />
-      <button type="submit" disabled={pending} className={btnCls}>
-        {pending ? "..." : "Agregar"}
-      </button>
+    <div className="flex flex-col gap-3">
+      <form action={action} className="flex flex-wrap items-start gap-2">
+        <input type="hidden" name="roomId" value={roomId} />
+        <input name="name" placeholder="Nueva categoría (ej: GOTY)" required minLength={2} maxLength={40} className={`${inputCls} max-w-xs`} />
+        <button type="submit" disabled={pending} className={btnCls}>
+          <Plus weight="bold" className="h-4 w-4" /> Agregar
+        </button>
+      </form>
+      <BulkCategoriesForm roomId={roomId} />
       <Msg state={state} />
-    </form>
+    </div>
+  );
+}
+
+export function BulkCategoriesForm({ roomId }: { roomId: string }) {
+  const [state, action, pending] = useActionState(bulkAddCategories, null);
+  return (
+    <details className="max-w-xl">
+      <summary className="inline-flex cursor-pointer items-center gap-1.5 text-sm text-subtle transition-colors hover:text-body">
+        <ListPlus className="h-4 w-4" /> Cargar varias categorías de una (una por línea)
+      </summary>
+      <form action={action} className="mt-2 flex flex-col gap-2">
+        <input type="hidden" name="roomId" value={roomId} />
+        <textarea
+          name="names"
+          placeholder={"Una categoría por línea:\nGOTY\nDirección de arte\nBanda sonora\nMejor indie"}
+          rows={4}
+          className={`${inputCls} font-body text-sm`}
+        />
+        {state?.error && <p className="text-sm text-danger">{state.error}</p>}
+        {state?.ok && <p className="text-sm text-emerald-400">{state.ok}</p>}
+        <button type="submit" disabled={pending} className={btnCls}>
+          {pending ? "..." : "Crear todas"}
+        </button>
+      </form>
+    </details>
   );
 }
 
@@ -75,8 +109,8 @@ export function AddItemForm({ roomId, categoryId }: { roomId: string; categoryId
   const [state, action, pending] = useActionState(addItem, null);
   return (
     <details className="mt-2">
-      <summary className="cursor-pointer text-sm text-zinc-500 hover:underline dark:text-zinc-400">
-        + Agregar objeto uno a uno
+      <summary className="inline-flex cursor-pointer items-center gap-1.5 text-sm text-subtle transition-colors hover:text-body">
+        <Plus className="h-4 w-4" /> Agregar objeto uno a uno
       </summary>
       <form action={action} className="mt-2 flex flex-col gap-2">
         <input type="hidden" name="roomId" value={roomId} />
@@ -84,12 +118,12 @@ export function AddItemForm({ roomId, categoryId }: { roomId: string; categoryId
         <input name="title" placeholder="Título" required maxLength={80} className={inputCls} />
         <textarea name="description" placeholder="Descripción (opcional)" maxLength={500} rows={2} className={inputCls} />
         <input name="imageUrl" type="url" placeholder="URL de imagen (opcional)" className={inputCls} />
-        <label className="flex items-center gap-2 text-sm">
-          <input type="checkbox" name="isInvalid" /> Inválido (vale 0 siempre)
+        <label className="flex cursor-pointer items-center gap-2 text-sm">
+          <input type="checkbox" name="isInvalid" className="accent-danger" /> Inválido (vale 0 siempre)
         </label>
         <Msg state={state} />
         <button type="submit" disabled={pending} className={btnCls}>
-          {pending ? "..." : "Agregar objeto"}
+          <Plus weight="bold" className="h-4 w-4" /> Agregar objeto
         </button>
       </form>
     </details>
@@ -100,8 +134,8 @@ export function BulkForm({ roomId, categoryId }: { roomId: string; categoryId: s
   const [state, action, pending] = useActionState(bulkAddItems, null);
   return (
     <details className="mt-2">
-      <summary className="cursor-pointer text-sm text-zinc-500 hover:underline dark:text-zinc-400">
-        + Carga masiva (pegar lista)
+      <summary className="inline-flex cursor-pointer items-center gap-1.5 text-sm text-subtle transition-colors hover:text-body">
+        <ListPlus className="h-4 w-4" /> Carga masiva (pegar lista)
       </summary>
       <form action={action} className="mt-2 flex flex-col gap-2">
         <input type="hidden" name="roomId" value={roomId} />
@@ -110,7 +144,7 @@ export function BulkForm({ roomId, categoryId }: { roomId: string; categoryId: s
           name="titles"
           placeholder={"Un título por línea:\nClair Obscur: Expedition 33\nSilksong\nHades II"}
           rows={5}
-          className={`${inputCls} font-mono text-sm`}
+          className={`${inputCls} text-sm`}
         />
         <Msg state={state} />
         <button type="submit" disabled={pending} className={btnCls}>
@@ -134,8 +168,10 @@ export function AiConfigForm({
 }) {
   const [state, action, pending] = useActionState(saveAiConfig, null);
   return (
-    <form action={action} className="flex w-full max-w-xl flex-col gap-2 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
-      <h3 className="font-semibold">🤖 IA para descripciones</h3>
+    <form action={action} className="flex w-full max-w-xl flex-col gap-2 rounded-xl border border-line/50 bg-card p-4">
+      <h3 className="flex items-center gap-2 font-display text-sm uppercase tracking-wide text-secondary">
+        <Sparkle weight="fill" className="h-4 w-4" /> IA para descripciones
+      </h3>
       <div className="flex flex-wrap gap-2">
         <select name="provider" defaultValue={provider ?? ""} className={inputCls}>
           <option value="">Sin IA</option>
@@ -152,9 +188,9 @@ export function AiConfigForm({
       </div>
       <Msg state={state} />
       <button type="submit" disabled={pending} className={btnCls}>
-        {pending ? "..." : "Guardar configuración"}
+        <GearSix weight="fill" className="h-4 w-4" /> Guardar configuración
       </button>
-      <p className="text-xs text-zinc-400 dark:text-zinc-500">
+      <p className="text-xs text-subtle">
         La clave se guarda en la base de datos y solo se usa desde el servidor. Nunca viaja al navegador.
       </p>
     </form>
@@ -171,31 +207,32 @@ export function ItemRow({
   item: { id: string; title: string; description: string | null; image_url: string | null; is_invalid: boolean };
 }) {
   return (
-    <li className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-zinc-200 px-3 py-2 dark:border-zinc-800">
+    <li className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-zinc-800 bg-card/60 px-3 py-2">
       <span className="min-w-0 flex-1">
-        <span className="font-medium">
+        <span className="flex flex-wrap items-center gap-2 font-medium">
           {item.title}
           {item.is_invalid && (
-            <span className="ml-2 rounded bg-red-100 px-1.5 py-0.5 text-xs text-red-700 dark:bg-red-900/40 dark:text-red-300">
-              inválido = 0
+            <span className="inline-flex items-center gap-1 rounded bg-danger/20 px-1.5 py-0.5 text-xs text-danger">
+              <Warning weight="fill" className="h-3 w-3" /> inválido: vale 0
             </span>
           )}
         </span>
-        {item.description && (
-          <p className="truncate text-sm text-zinc-400 dark:text-zinc-500">{item.description}</p>
+        {item.description ? (
+          <p className="truncate text-sm text-subtle">{item.description}</p>
+        ) : (
+          <p className="text-xs text-zinc-600">sin descripción</p>
         )}
-        {!item.description && <p className="text-xs text-zinc-400 dark:text-zinc-500">sin descripción</p>}
       </span>
       <span className="flex shrink-0 items-center gap-2">
         <ActionButton
           action={generateDescription}
           fields={{ roomId, itemId: item.id, categoryId }}
-          label="🤖 Descripción"
+          label="Descripción IA"
         />
         <ActionButton
           action={deleteItem}
           fields={{ roomId, itemId: item.id }}
-          label="✕"
+          label="Eliminar"
           confirm={`¿Eliminar "${item.title}"?`}
         />
       </span>

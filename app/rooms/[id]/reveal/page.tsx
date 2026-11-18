@@ -6,6 +6,7 @@ import { getUser } from "@/lib/auth";
 import { ActionButton } from "@/components/admin-forms";
 import AutoRefresh from "@/components/auto-refresh";
 import { revealNext, closeRoom } from "../results/actions";
+import { CheckCircle, EyeSlash } from "@phosphor-icons/react/dist/ssr";
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -56,11 +57,11 @@ async function RevealScreen({ roomId }: { roomId: string }) {
     <div className="flex w-full max-w-3xl flex-col gap-8 px-6 pt-10 pb-24">
       <AutoRefresh />
       <header>
-        <Link href={`/rooms/${roomId}/results`} className="text-sm text-zinc-400 hover:underline dark:text-zinc-500">
+        <Link href={`/rooms/${roomId}/results`} className="text-sm text-subtle transition-colors hover:text-body">
           ← Volver a resultados
         </Link>
         <h1 className="text-2xl font-bold">🎬 Revelación en vivo: {room.title}</h1>
-        <p className="text-sm text-zinc-400 dark:text-zinc-500">
+        <p className="text-sm text-subtle">
           {unrevealed === 0
             ? "🎉 Todas las categorías están reveladas"
             : `Quedan ${unrevealed} categoría(s) por revelar · los jugadores ven los puntos en vivo`}
@@ -80,8 +81,8 @@ async function RevealScreen({ roomId }: { roomId: string }) {
         )}
       </div>
 
-      <section className="rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+      <section className="rounded-xl border border-zinc-800 bg-card p-4">
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-subtle">
           Marcador en vivo
         </h2>
         <ul className="flex flex-col gap-2">
@@ -110,24 +111,24 @@ async function RevealScreen({ roomId }: { roomId: string }) {
       </section>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-subtle">
           Categorías
         </h2>
         <ul className="flex flex-col gap-2 text-sm">
           {results.map((r) => (
-            <li key={r.category_id} className="flex items-center justify-between rounded-lg border border-zinc-200 px-3 py-2 dark:border-zinc-800">
+            <li key={r.category_id} className="flex items-center justify-between rounded-lg border border-zinc-800 bg-card/60 px-3 py-2">
               <span>{r.name}</span>
               <span>
                 {r.revealed ? (
-                  <>✅ revelada: <b>{r.winner_title}</b></>
+                  <><CheckCircle weight="fill" className="h-4 w-4 text-emerald-400" /> revelada: <b>{r.winner_title}</b></>
                 ) : (
-                  "🙈 oculta"
+                  <><EyeSlash className="h-4 w-4" /> oculta</>
                 )}
               </span>
             </li>
           ))}
           {results.length === 0 && (
-            <li className="text-zinc-400 dark:text-zinc-500">
+            <li className="text-subtle">
               Todavía no hay resultados publicados (cargalos desde Resultados).
             </li>
           )}
@@ -140,7 +141,7 @@ async function RevealScreen({ roomId }: { roomId: string }) {
 export default function RevealPage({ params }: { params: Promise<{ id: string }> }) {
   return (
     <div className="flex flex-1 flex-col items-center">
-      <Suspense fallback={<p className="py-16 text-sm text-zinc-400">Cargando revelación...</p>}>
+      <Suspense fallback={<p className="py-16 text-sm text-subtle">Cargando revelación...</p>}>
         <RevealInner params={params} />
       </Suspense>
     </div>

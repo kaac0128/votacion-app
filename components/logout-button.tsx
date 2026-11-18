@@ -11,7 +11,7 @@ export default function LogoutButton() {
         router.push("/");
         router.refresh();
       }}
-      className="text-sm text-zinc-500 underline dark:text-zinc-400"
+      className="text-sm text-subtle underline transition-colors hover:text-body"
     >
       Cerrar sesión
     </button>

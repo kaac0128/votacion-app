@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { GameController } from "@phosphor-icons/react/dist/ssr";
 
 type Item = {
   id: string;
@@ -86,20 +87,20 @@ export default function VoteForm({
                 />
               ) : (
                 <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-zinc-200 text-xl dark:border-zinc-700">
-                  🎮
+                  <GameController weight="fill" className="h-6 w-6 text-secondary" />
                 </span>
               )}
               <span className="min-w-0 flex-1">
                 <span className="flex flex-wrap items-center gap-2 font-medium">
                   {item.title}
                   {item.is_invalid && (
-                    <span className="rounded bg-red-100 px-1.5 py-0.5 text-xs text-red-700 dark:bg-red-900/40 dark:text-red-300">
-                      ⚠️ inválido: vale 0
+                    <span className="rounded bg-red-100 px-1.5 py-0.5 text-xs text-danger dark:bg-danger/20 dark:text-red-300">
+                      inválido: vale 0
                     </span>
                   )}
                 </span>
                 {item.description && (
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">{item.description}</p>
+                  <p className="text-sm text-subtle">{item.description}</p>
                 )}
               </span>
             </label>
@@ -107,21 +108,21 @@ export default function VoteForm({
         ))}
       </ul>
 
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-sm text-danger">{error}</p>}
 
       <div className="flex flex-wrap gap-3">
         <button
           type="submit"
-          className="rounded-lg bg-emerald-600 px-5 py-2 font-medium text-white hover:bg-emerald-700"
+          className="rounded-lg bg-primary px-5 py-2.5 font-semibold text-white transition-colors hover:bg-primary-hover"
         >
-          {myVoteId ? "🔄 Cambiar voto" : "🗳 Guardar voto"}
+          {myVoteId ? "Cambiar voto" : "Guardar voto"}
         </button>
         <button
           type="button"
           onClick={random}
-          className="rounded-lg border border-zinc-300 px-5 py-2 font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
+          className="rounded-lg border border-zinc-700 px-5 py-2.5 font-semibold transition-colors hover:bg-card-hover"
         >
-          🎲 Aleatorio
+          Aleatorio
         </button>
       </div>
     </form>

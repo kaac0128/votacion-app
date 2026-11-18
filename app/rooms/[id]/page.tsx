@@ -10,6 +10,19 @@ import { ActionButton } from "@/components/admin-forms";
 import { TiebreakStart, TiebreakPick } from "@/components/tiebreak";
 import AutoRefresh from "@/components/auto-refresh";
 import { requestReopen, supportReopen, adminReopen } from "./reopen/actions";
+import {
+  ArrowLeft,
+  CheckCircle,
+  Crown,
+  Door,
+  GearSix,
+  Lightning,
+  LockSimple,
+  Medal,
+  Play,
+  Trophy,
+  UsersThree,
+} from "@phosphor-icons/react/dist/ssr";
 
 function initials(name: string): string {
   return name
@@ -20,11 +33,20 @@ function initials(name: string): string {
     .join("");
 }
 
-const STATUS_LABEL: Record<string, string> = {
-  open: "🟢 Abierta",
-  results: "🏆 Resultados",
-  closed: "🔒 Cerrada",
+const STATUS_BADGE: Record<string, { icon: React.ReactNode; label: string; cls: string }> = {
+  open: { icon: <Lightning weight="fill" className="h-4 w-4" />, label: "Abierta", cls: "text-emerald-400" },
+  results: { icon: <Trophy weight="fill" className="h-4 w-4" />, label: "Resultados", cls: "text-accent" },
+  closed: { icon: <LockSimple weight="fill" className="h-4 w-4" />, label: "Cerrada", cls: "text-subtle" },
 };
+
+function SectionTitle({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <h2 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-secondary">
+      {icon}
+      {children}
+    </h2>
+  );
+}
 
 async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -52,8 +74,8 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
     return (
       <div className="flex flex-col items-center gap-4 text-center">
         <h1 className="text-2xl font-bold">{room.title}</h1>
-        <p className="text-zinc-500 dark:text-zinc-400">No sos parte de esta sala.</p>
-        <Link href="/" className="underline">
+        <p className="text-subtle">No sos parte de esta sala.</p>
+        <Link href="/" className="text-secondary underline">
           Volver al inicio
         </Link>
       </div>
@@ -71,7 +93,7 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
     [id, room.admin_user_id]
   );
 
-  // Totales de puntos (solo si hay resultados publicados)
+  // Totales de puntos (solo si hay resultados revelados)
   const { rows: totals } = await pool.query<{ name: string; user_id: string; pts: string; is_admin: boolean }>(
     `select u.name, m.user_id,
             coalesce(sum(case when r.winner_item_id = v.item_id and not w.is_invalid then 10 else 0 end), 0) as pts,
@@ -152,18 +174,22 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
   const reopenReady = reopen ? Number(reopen.supports) >= reopenSupportNeeded : false;
   const reopenVisible = !anyPublished && !votingOpen;
 
+  const badge = STATUS_BADGE[room.status];
+
   return (
     <div className="flex w-full max-w-3xl flex-col gap-8 px-6 pt-10 pb-24">
-      <header className="flex flex-col gap-2">
-        <Link href="/" className="text-sm text-zinc-400 hover:underline dark:text-zinc-500">
-          ← Volver
+      <header className="flex flex-col gap-3">
+        <Link href="/" className="flex items-center gap-1 text-sm text-subtle transition-colors hover:text-body">
+          <ArrowLeft className="h-4 w-4" /> Volver
         </Link>
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h1 className="text-3xl font-bold">{room.title}</h1>
-          <span className="text-sm">{STATUS_LABEL[room.status] ?? room.status}</span>
+          <h1 className="font-display text-glow text-3xl tracking-wide">{room.title}</h1>
+          <span className={`flex items-center gap-1.5 rounded-full border border-line/50 bg-card px-3 py-1 text-sm ${badge.cls}`}>
+            {badge.icon} {badge.label}
+          </span>
         </div>
-        {room.theme && <p className="text-zinc-500 dark:text-zinc-400">{room.theme}</p>}
-        <p className="text-sm text-zinc-400 dark:text-zinc-500">
+        {room.theme && <p className="text-secondary">{room.theme}</p>}
+        <p className="text-sm text-subtle">
           {room.deadline
             ? `Vota hasta: ${new Intl.DateTimeFormat("es-AR", { dateStyle: "medium", timeStyle: "short" }).format(room.deadline)}`
             : "Sin fecha límite"}
@@ -171,51 +197,52 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
         {isAdmin && (
           <p className="text-sm">
             Código de la sala:{" "}
-            <span className="rounded bg-zinc-100 px-2 py-1 font-mono font-bold tracking-widest dark:bg-zinc-800">
+            <span className="rounded border border-primary/40 bg-primary/20 px-2 py-1 font-mono font-bold tracking-widest text-secondary">
               {room.code}
             </span>{" "}
-            <span className="text-zinc-400 dark:text-zinc-500">(compartilo con tus amigos)</span>
+            <span className="text-subtle">(compartilo con tus amigos)</span>
           </p>
         )}
         {isAdmin && (
           <div className="flex flex-wrap gap-3">
             <Link
               href={`/rooms/${room.id}/admin`}
-              className="self-start rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-900"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
             >
-              ⚙️ Administrar sala
+              <GearSix weight="fill" className="h-4 w-4" /> Administrar sala
             </Link>
             <Link
               href={`/rooms/${room.id}/results`}
-              className="self-start rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+              className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-rose-500"
             >
-              🏆 Cargar resultados
+              <Trophy weight="fill" className="h-4 w-4" /> Cargar resultados
             </Link>
           </div>
         )}
       </header>
 
       {champions.length > 0 && (
-        <section className="fade-up rounded-xl border-2 border-amber-400 bg-amber-50 p-6 text-center dark:bg-amber-900/20 dark:border-amber-600">
-          <p className="text-sm uppercase tracking-wide text-amber-700 dark:text-amber-400">
+        <section className="fade-up rounded-xl border-2 border-amber-500/60 bg-gradient-to-b from-amber-500/15 to-transparent p-6 text-center">
+          <p className="text-xs uppercase tracking-widest text-amber-400">
             {anyPublished ? "Clasificación en vivo" : "Podio"}
           </p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-6">
             {champions.map((cid) => (
               <span key={cid} className="flex flex-col items-center">
-                <span className="crown-anim text-4xl">👑</span>
-                <span className="text-lg font-bold">{nameOf(cid)}</span>
-                <span className="text-sm text-amber-700 dark:text-amber-400">
-                  🥇 {players.find((p) => p.user_id === cid)?.pts} pts
+                <Crown weight="fill" className="crown-anim h-10 w-10" />
+                <span className="font-display text-lg tracking-wide">{nameOf(cid)}</span>
+                <span className="text-sm text-amber-400">
+                  {players.find((p) => p.user_id === cid)?.pts} pts
                 </span>
               </span>
             ))}
           </div>
           {rest.slice(0, 4).length > 0 && (
-            <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm">
+            <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-body">
               {rest.slice(0, 4).map((p, i) => (
-                <span key={p.user_id}>
-                  {i === 0 ? "🥈" : i === 1 ? "🥉" : "🏅"} {p.name} · {p.pts} pts
+                <span key={p.user_id} className="flex items-center gap-1">
+                  <Medal weight="fill" className={`h-4 w-4 ${i === 0 ? "text-zinc-300" : i === 1 ? "text-amber-700" : "text-subtle"}`} />
+                  {p.name} · {p.pts} pts
                 </span>
               ))}
             </div>
@@ -224,34 +251,37 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
       )}
 
       {tiebreakNeeded && (
-        <section className="rounded-xl border border-red-300 bg-red-50 p-4 text-center dark:border-red-800 dark:bg-red-900/20">
-          <h2 className="font-bold">⚔️ Empate de {top.length} en {maxPts} pts: ¡desempate!</h2>
+        <section className="rounded-xl border border-danger/50 bg-danger/10 p-4 text-center">
+          <h2 className="flex items-center justify-center gap-2 font-bold">
+            <Lightning weight="fill" className="h-5 w-5 text-accent" />
+            Empate de {top.length} en {maxPts} pts: ¡desempate!
+          </h2>
           {!currentTb && isAdmin ? (
             <div className="mt-3">
               <TiebreakStart roomId={room.id} participants={top.map((p) => p.user_id)} />
             </div>
           ) : !currentTb ? (
-            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">El admin debe iniciar el desempate.</p>
+            <p className="mt-2 text-sm text-subtle">El admin debe iniciar el desempate.</p>
           ) : null}
         </section>
       )}
 
       {currentTb && (
-        <section className="rounded-xl border border-zinc-300 p-4 text-center dark:border-zinc-700">
-          <h2 className="font-bold">🪨 Ronda {currentTb.round}</h2>
+        <section className="rounded-xl border border-line/50 bg-card p-4 text-center">
+          <h2 className="font-display tracking-wide">Ronda {currentTb.round}</h2>
           {iPendingPick ? (
             <div className="mt-3">
-              <p className="mb-2 text-sm text-zinc-500 dark:text-zinc-400">Elegí en secreto (los demás no ven tu jugada):</p>
+              <p className="mb-2 text-sm text-subtle">Elegí en secreto (los demás no ven tu jugada):</p>
               <TiebreakPick roomId={room.id} roundId={currentTb.id} />
             </div>
           ) : (
-            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="mt-2 text-sm text-subtle">
               Elecciones: {currentTbPicks.length}/{currentTb.participants.length}
-              {iPendingPick === false && currentTb.participants.includes(user.id) && " (ya votaste esta ronda)"}
+              {currentTb.participants.includes(user.id) && " (ya votaste esta ronda)"}
             </p>
           )}
           {tbRounds.length > 1 && (
-            <p className="mt-2 text-xs text-zinc-400 dark:text-zinc-500">
+            <p className="mt-2 text-xs text-subtle">
               {tbRounds.slice(0, -1).map((r) => `Ronda ${r.round}: siguió ${r.participants.length}`).join(" · ")}
             </p>
           )}
@@ -259,11 +289,13 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
       )}
 
       {reopenVisible && (
-        <section className="rounded-xl border border-zinc-300 p-4 dark:border-zinc-700">
-          <h2 className="font-bold">🔓 Reapertura de votos</h2>
+        <section className="rounded-xl border border-line/50 bg-card p-4">
+          <h2 className="flex items-center gap-2 font-bold">
+            <Door className="h-5 w-5 text-secondary" /> Reapertura de votos
+          </h2>
           {!reopen ? (
             <div className="mt-2 flex flex-wrap items-center gap-3">
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="text-sm text-subtle">
                 ¿Te arrepentiste de algún voto? Pedí reabrir y si la mitad o más apoya, el admin la habilita.
               </p>
               {!isAdmin && <ActionButton action={requestReopen} fields={{ roomId: room.id }} label="Solicitar reapertura" />}
@@ -272,7 +304,11 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
             <div className="mt-2 flex flex-wrap items-center gap-3 text-sm">
               <span>
                 <b>{nameOf(reopen.requester_id)}</b> pidió reabrir · apoyos {reopen.supports}/{reopenSupportNeeded}
-                {reopenReady && " ✅"}
+                {reopenReady && (
+                  <span className="ml-1 inline-flex items-center gap-1 text-emerald-400">
+                    <CheckCircle weight="fill" className="h-4 w-4" /> solicitud aprobada
+                  </span>
+                )}
               </span>
               {!reopen.i_requested && !reopen.i_support && !isAdmin && (
                 <ActionButton action={supportReopen} fields={{ roomId: room.id }} label="Apoyar" />
@@ -290,9 +326,9 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
       )}
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+        <SectionTitle icon={<UsersThree weight="fill" className="h-4 w-4" />}>
           Participantes ({members.length})
-        </h2>
+        </SectionTitle>
         <ul className="flex flex-wrap gap-4">
           {members.map((m) => (
             <li key={m.name} className="flex flex-col items-center gap-1 text-center">
@@ -301,15 +337,15 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
                 <img
                   src={m.avatar.slice(4)}
                   alt={m.name}
-                  className="h-14 w-14 rounded-full border-2 border-zinc-300 object-cover dark:border-zinc-700"
+                  className="h-14 w-14 rounded-full border-2 border-primary/50 object-cover"
                 />
               ) : (
-                <span className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-zinc-300 text-lg font-bold dark:border-zinc-700">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-primary/50 bg-card text-lg font-bold text-secondary">
                   {initials(m.name)}
                 </span>
               )}
-              <span className="text-sm">
-                {m.is_admin && "👑 "}
+              <span className="flex items-center gap-1 text-sm">
+                {m.is_admin && <Crown weight="fill" className="h-3.5 w-3.5 text-amber-400" />}
                 {m.name}
               </span>
             </li>
@@ -318,22 +354,18 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
       </section>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-          Puntos
-        </h2>
+        <SectionTitle icon={<Trophy weight="fill" className="h-4 w-4" />}>Puntos</SectionTitle>
         {!anyPublished ? (
-          <p className="text-sm text-zinc-400 dark:text-zinc-500">
-            Los puntos aparecen cuando el admin publique resultados.
-          </p>
+          <p className="text-sm text-subtle">Los puntos aparecen cuando el admin publique resultados.</p>
         ) : (
           <ul className="flex flex-col gap-1 text-sm">
             {totals.map((t) => (
-              <li key={t.user_id} className="flex justify-between rounded-lg border border-zinc-200 px-3 py-2 dark:border-zinc-800">
-                <span>
-                  {t.is_admin && "👑 "}
+              <li key={t.user_id} className="flex items-center justify-between rounded-lg border border-zinc-800 bg-card/60 px-3 py-2">
+                <span className="flex items-center gap-1.5">
+                  {t.is_admin && <Crown weight="fill" className="h-3.5 w-3.5 text-amber-400" />}
                   {t.name}
                 </span>
-                <span className="font-bold">{t.pts} pts</span>
+                <span className="font-bold text-secondary">{t.pts} pts</span>
               </li>
             ))}
           </ul>
@@ -341,13 +373,11 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
       </section>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-          Categorías
-        </h2>
+        <SectionTitle icon={<Play weight="fill" className="h-4 w-4" />}>Categorías</SectionTitle>
         {categories.length === 0 ? (
-          <p className="text-sm text-zinc-400 dark:text-zinc-500">
+          <p className="text-sm text-subtle">
             {isAdmin
-              ? "Todavía no creaste categorías. Entrá a ⚙️ Administrar sala para cargarlas."
+              ? "Todavía no creaste categorías. Entrá a Administrar sala para cargarlas."
               : "El admin todavía no cargó categorías."}
           </p>
         ) : (
@@ -356,12 +386,10 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
               <li key={c.id}>
                 <Link
                   href={`/rooms/${room.id}/category/${c.id}`}
-                  className="flex items-center justify-between rounded-xl border border-zinc-200 px-4 py-3 hover:border-zinc-900 dark:border-zinc-800 dark:hover:border-zinc-100"
+                  className="flex items-center justify-between rounded-xl border border-zinc-800 bg-card px-4 py-3 transition-all hover:border-primary hover:shadow-[0_0_20px_rgba(124,58,237,0.35)]"
                 >
                   <span className="font-medium">{c.name}</span>
-                  <span className="text-sm text-zinc-400 dark:text-zinc-500">
-                    {c.item_count} nominados →
-                  </span>
+                  <span className="text-sm text-subtle">{c.item_count} nominados →</span>
                 </Link>
               </li>
             ))}
@@ -376,7 +404,7 @@ export default function RoomPage({ params }: { params: Promise<{ id: string }> }
   return (
     <div className="flex flex-1 flex-col items-center">
       <AutoRefresh />
-      <Suspense fallback={<p className="py-16 text-sm text-zinc-400">Cargando sala...</p>}>
+      <Suspense fallback={<p className="py-16 text-sm text-subtle">Cargando sala...</p>}>
         <RoomDetail params={params} />
       </Suspense>
     </div>

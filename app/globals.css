@@ -2,32 +2,65 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ===== Design tokens — design-system/la-corona/MASTER.md ===== */
+@theme {
+  --color-primary: #7c3aed;
+  --color-primary-hover: #6d28d9;
+  --color-secondary: #a78bfa;
+  --color-accent: #f43f5e;
+  --color-surface: #0f0f23;
+  --color-card: #1e1c35;
+  --color-card-hover: #27273b;
+  --color-line: #4c1d95;
+  --color-body: #e2e8f0;
+  --color-subtle: #94a3b8;
+  --color-danger: #ef4444;
+  --font-display: var(--font-russo);
+  --font-body: var(--font-chakra);
+}
+
 :root {
-  --background: #09090b;
-  --foreground: #ededed;
+  --background: #0f0f23;
+  --foreground: #e2e8f0;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-chakra);
+  --font-mono: var(--font-chakra);
 }
 
 body {
   background:
-    radial-gradient(1100px 500px at 85% -10%, rgba(168, 85, 247, 0.14), transparent 60%),
-    radial-gradient(900px 500px at 5% 110%, rgba(34, 211, 238, 0.1), transparent 60%),
+    radial-gradient(1100px 500px at 85% -10%, rgba(124, 58, 237, 0.22), transparent 60%),
+    radial-gradient(900px 500px at 5% 110%, rgba(244, 63, 94, 0.12), transparent 60%),
     var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-chakra), Arial, sans-serif;
+}
+
+/* clickeables siempre con cursor de mano (Tailwind v4 lo sacó) */
+button:not(:disabled),
+[role="button"],
+a[href] {
+  cursor: pointer;
+}
+
+/* coronita animada del podio */
+@keyframes crown-bounce {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-10deg) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) rotate(10deg) scale(1.15);
+  }
+}
+.crown-anim {
+  display: inline-block;
+  color: #fbbf24;
+  animation: crown-bounce 1.6s ease-in-out infinite;
 }
 
 /* entrada suave de secciones */
@@ -45,17 +78,14 @@ body {
   animation: fade-up 0.45s ease-out both;
 }
 
-/* coronita animada del podio */
-@keyframes crown-bounce {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-10deg);
-  }
-  50% {
-    transform: translateY(-6px) rotate(10deg);
-  }
+/* glow neón para titulares */
+.text-glow {
+  text-shadow: 0 0 24px rgba(124, 58, 237, 0.65);
 }
-.crown-anim {
-  display: inline-block;
-  animation: crown-bounce 1.6s ease-in-out infinite;
+
+@media (prefers-reduced-motion: reduce) {
+  .crown-anim,
+  .fade-up {
+    animation: none;
+  }
 }

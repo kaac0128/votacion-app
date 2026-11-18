@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import { publishResult, type ActionState } from "@/app/rooms/[id]/results/actions";
 
 const inputCls =
-  "w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-100";
+  "w-full rounded-lg border border-zinc-700 bg-zinc-900/80 px-3 py-2 outline-none transition-colors focus:border-primary";
 const btnCls =
   "rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-50";
 
@@ -47,10 +47,10 @@ export default function ResultForm({
           </option>
         ))}
       </select>
-      {state?.error && <p className="text-sm text-red-500">{state.error}</p>}
-      {state?.ok && <p className="text-sm text-emerald-500">{state.ok}</p>}
+      {state?.error && <p className="text-sm text-danger">{state.error}</p>}
+      {state?.ok && <p className="text-sm text-emerald-400">{state.ok}</p>}
       <button type="submit" disabled={pending} className={btnCls}>
-        {pending ? "..." : isCorrection ? "🔁 Publicar corrección" : "🏆 Publicar resultado"}
+        {pending ? "..." : isCorrection ? "Publicar corrección" : "Publicar resultado"}
       </button>
     </form>
   );

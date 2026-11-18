@@ -8,9 +8,9 @@ import { generateDescription, saveBulkItem } from "../../admin/actions";
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const inputCls =
-  "w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 outline-none focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-100";
+  "w-full rounded-lg border border-zinc-700 bg-zinc-900/80 px-3 py-2 outline-none transition-colors focus:border-primary";
 const btnCls =
-  "rounded-lg bg-zinc-900 px-4 py-2 font-medium text-white disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900";
+  "rounded-lg bg-primary px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-hover disabled:opacity-50";
 
 async function Carousel({ roomId, categoryId }: { roomId: string; categoryId: string }) {
   const user = await getUser();
@@ -50,11 +50,11 @@ async function Carousel({ roomId, categoryId }: { roomId: string; categoryId: st
   return (
     <div className="flex w-full max-w-xl flex-col gap-6 px-6 pt-10 pb-24">
       <header>
-        <Link href={`/rooms/${roomId}/admin`} className="text-sm text-zinc-400 hover:underline dark:text-zinc-500">
+        <Link href={`/rooms/${roomId}/admin`} className="text-sm text-subtle transition-colors hover:text-body">
           ← Volver al panel
         </Link>
-        <h1 className="text-2xl font-bold">🃏 Carrusel: {catRows[0].name}</h1>
-        <p className="text-sm text-zinc-400 dark:text-zinc-500">
+        <h1 className="font-display text-2xl tracking-wide">Carrusel: {catRows[0].name}</h1>
+        <p className="text-sm text-subtle">
           Objeto {items.length - pending.length + 1} de {items.length} — quedan {pending.length} sin describir
         </p>
       </header>
@@ -89,23 +89,23 @@ async function Carousel({ roomId, categoryId }: { roomId: string; categoryId: st
 
         <div className="flex flex-wrap items-center gap-3">
           <button type="submit" name="intent" value="save" className={btnCls}>
-            ✔ Guardar y seguir
+            Guardar y seguir
           </button>
           <button
             type="submit"
             name="intent"
             value="skip"
-            className="rounded-lg border border-zinc-300 px-4 py-2 font-medium dark:border-zinc-700"
+            className="rounded-lg border border-zinc-700 px-4 py-2 font-semibold transition-colors hover:bg-card-hover"
           >
-            ⏭ Saltar
+            Saltar
           </button>
           <ActionButton
             action={generateDescription}
             fields={{ roomId, itemId: current.id, categoryId }}
-            label="🤖 Generar con IA"
+            label="Generar con IA"
           />
         </div>
-        <p className="text-xs text-zinc-400 dark:text-zinc-500">
+        <p className="text-xs text-subtle">
           Saltar guarda lo cargado hasta ahora y pasa al siguiente. Podés regenerar descripciones después desde el panel.
         </p>
       </form>
@@ -116,7 +116,7 @@ async function Carousel({ roomId, categoryId }: { roomId: string; categoryId: st
 export default function BulkPage({ params }: { params: Promise<{ id: string; catId: string }> }) {
   return (
     <div className="flex flex-1 flex-col items-center">
-      <Suspense fallback={<p className="py-16 text-sm text-zinc-400">Cargando carrusel...</p>}>
+      <Suspense fallback={<p className="py-16 text-sm text-subtle">Cargando carrusel...</p>}>
         <CarouselInner params={params} />
       </Suspense>
     </div>

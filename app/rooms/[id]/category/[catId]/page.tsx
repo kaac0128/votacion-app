@@ -8,6 +8,7 @@ import { ActionButton } from "@/components/admin-forms";
 import { setFeedback } from "@/app/rooms/[id]/results/actions";
 import { voteItem } from "./actions";
 import AutoRefresh from "@/components/auto-refresh";
+import { CheckCircle, Trophy, X } from "@phosphor-icons/react/dist/ssr";
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -120,13 +121,13 @@ async function CategoryVote({
   return (
     <div className="flex w-full max-w-xl flex-col gap-6 px-6 pt-10 pb-24">
       <header>
-        <Link href={`/rooms/${roomId}`} className="text-sm text-zinc-400 hover:underline dark:text-zinc-500">
+        <Link href={`/rooms/${roomId}`} className="text-sm text-subtle transition-colors hover:text-body">
           ← {room.title}
         </Link>
         <h1 className="text-2xl font-bold">🗳 {catRows[0].name}</h1>
-        <p className="text-sm text-zinc-400 dark:text-zinc-500">
+        <p className="text-sm text-subtle">
           {closed
-            ? "🔒 Votación cerrada"
+            ? "Votación cerrada"
             : room.deadline
               ? `Podés cambiar tu voto hasta ${formatDate(room.deadline)}`
               : "Podés cambiar tu voto hasta que el admin cierre la sala"}
@@ -135,30 +136,30 @@ async function CategoryVote({
 
       {closed ? (
         resultHidden ? (
-          <div className="rounded-xl border border-zinc-300 p-6 text-center dark:border-zinc-700">
-            <p className="text-lg font-semibold">🙈 El resultado ya está cargado</p>
-            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+          <div className="rounded-xl border border-zinc-800 bg-card p-6 text-center">
+            <p className="text-lg font-semibold">El resultado ya está cargado</p>
+            <p className="mt-1 text-sm text-subtle">
               El admin lo va a revelar en vivo. Podés seguir la revelación desde la sala.
             </p>
           </div>
         ) : result ? (
           <section className="flex flex-col gap-3 rounded-xl border border-emerald-300 p-4 dark:border-emerald-800">
-            <h2 className="text-lg font-bold">🏆 Resultado: {result.winner_title}</h2>
+            <h2 className="flex items-center gap-2 text-lg font-bold"><Trophy weight="fill" className="h-5 w-5 text-accent" /> Resultado: {result.winner_title}</h2>
             {myVoteId && (
               <p className="text-sm">
                 Tu elección: <b>{myPick?.title ?? "—"}</b> →{" "}
                 {!result.winner_invalid && myVoteId === result.winner_item_id ? (
-                  <span className="text-emerald-600 dark:text-emerald-400">✅ +10 puntos</span>
+                  <span className="flex items-center gap-1 text-emerald-400"><CheckCircle weight="fill" className="h-4 w-4" /> +10 puntos</span>
                 ) : (
-                  <span className="text-red-500">❌ 0 puntos</span>
+                  <span className="flex items-center gap-1 text-danger"><X weight="fill" className="h-4 w-4" /> 0 puntos</span>
                 )}
               </p>
             )}
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="text-sm text-subtle">
               {resultFinal ? (
-                "🔒 Resultado FINAL (se agotaron las 3 correcciones)"
+                "Resultado FINAL (se agotaron las 3 correcciones)"
               ) : inDispute ? (
-                "⚠️ EN DISPUTA: el admin debe corregir el resultado"
+                "EN DISPUTA: el admin debe corregir el resultado"
               ) : (
                 `Publicación ${result.attempt} · 👍 ${agrees} de acuerdo · 🚩 ${reports} reportes (se necesitan ${Math.ceil(participants / 2)})`
               )}
@@ -179,14 +180,14 @@ async function CategoryVote({
             )}
             {others.length > 0 && (
               <div>
-                <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+                <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-subtle">
                   Lo que votaron todos
                 </h3>
                 <ul className="flex flex-col gap-1 text-sm">
                   {others.map((o) => (
-                    <li key={o.name} className="text-zinc-600 dark:text-zinc-300">
+                    <li key={o.name} className="text-body">
                       <b>{o.name}</b> → {o.title}
-                      {result && (o.title === result.winner_title ? " ✅" : "")}
+                      {result && o.title === result.winner_title && <CheckCircle weight="fill" className="inline h-4 w-4 text-emerald-400" />}
                     </li>
                   ))}
                 </ul>
@@ -195,15 +196,15 @@ async function CategoryVote({
           </section>
         ) : myVoteId ? (
           <div className="flex flex-col gap-4">
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Tu voto quedó guardado y no se puede cambiar.</p>
+            <p className="text-sm text-subtle">Tu voto quedó guardado y no se puede cambiar.</p>
             {others.length > 0 && (
               <div>
-                <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+                <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-subtle">
                   Lo que votaron todos
                 </h2>
                 <ul className="flex flex-col gap-1 text-sm">
                   {others.map((o) => (
-                    <li key={o.name} className="text-zinc-600 dark:text-zinc-300">
+                    <li key={o.name} className="text-body">
                       <b>{o.name}</b> → {o.title}
                     </li>
                   ))}
@@ -212,7 +213,7 @@ async function CategoryVote({
             )}
           </div>
         ) : (
-          <p className="text-zinc-500 dark:text-zinc-400">No llegaste a votar en esta categoría.</p>
+          <p className="text-subtle">No llegaste a votar en esta categoría.</p>
         )
       ) : (
         <>
@@ -226,17 +227,17 @@ async function CategoryVote({
           />
           {myVoteId && others.length > 0 && (
             <div>
-              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-subtle">
                 Ya votaron
               </h2>
               <ul className="flex flex-col gap-1 text-sm">
                 {others.map((o) => (
-                  <li key={o.name} className="text-zinc-600 dark:text-zinc-300">
+                  <li key={o.name} className="text-body">
                     <b>{o.name}</b> → {o.title}
                   </li>
                 ))}
               </ul>
-              <p className="mt-1 text-xs text-zinc-400 dark:text-zinc-500">
+              <p className="mt-1 text-xs text-subtle">
                 Podés cambiar tu voto hasta el cierre.
               </p>
             </div>
@@ -257,7 +258,7 @@ export default function CategoryPage({
   return (
     <div className="flex flex-1 flex-col items-center">
       <AutoRefresh />
-      <Suspense fallback={<p className="py-16 text-sm text-zinc-400">Cargando votación...</p>}>
+      <Suspense fallback={<p className="py-16 text-sm text-subtle">Cargando votación...</p>}>
         <CategoryInner params={params} searchParams={searchParams} />
       </Suspense>
     </div>

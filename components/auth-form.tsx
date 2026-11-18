@@ -34,7 +34,7 @@ export default function AuthForm({ mode, redirectTo = "/" }: { mode: "login" | "
   return (
     <form onSubmit={submit} className="flex w-full max-w-sm flex-col gap-4 rounded-xl border border-line/50 bg-card p-6">
       <div>
-        <label htmlFor="name" className="mb-1 block text-sm font-medium">
+        <label htmlFor="name" className="mb-1 block text-center text-sm font-medium">
           Nombre
         </label>
         <input
@@ -49,7 +49,7 @@ export default function AuthForm({ mode, redirectTo = "/" }: { mode: "login" | "
         />
       </div>
       <div>
-        <label htmlFor="password" className="mb-1 block text-sm font-medium">
+        <label htmlFor="password" className="mb-1 block text-center text-sm font-medium">
           Contraseña
         </label>
         <input

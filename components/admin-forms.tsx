@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import {
   addCategory,
   addItem,
@@ -167,25 +167,48 @@ export function AiConfigForm({
   model: string | null;
 }) {
   const [state, action, pending] = useActionState(saveAiConfig, null);
+  const [selected, setSelected] = useState(provider ?? "");
+  const options = [
+    { value: "", title: "Sin IA", desc: "Descripciones a mano" },
+    { value: "gemini", title: "Gemini", desc: "Google AI, gratis" },
+    { value: "openrouter", title: "OpenRouter", desc: "Multi-modelo" },
+  ];
   return (
-    <form action={action} className="flex w-full max-w-xl flex-col gap-2 rounded-xl border border-line/50 bg-card p-4">
-      <h3 className="flex items-center gap-2 font-display text-sm uppercase tracking-wide text-secondary">
+    <form action={action} className="flex w-full flex-col gap-4 rounded-xl border border-line/50 bg-card p-5">
+      <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
         <Sparkle weight="fill" className="h-4 w-4" /> IA para descripciones
       </h3>
-      <div className="flex flex-wrap gap-2">
-        <select name="provider" defaultValue={provider ?? ""} className={inputCls}>
-          <option value="">Sin IA</option>
-          <option value="gemini">Google Gemini</option>
-          <option value="openrouter">OpenRouter</option>
-        </select>
-        <input
-          name="key"
-          type="password"
-          placeholder={hasKey ? "•••••••• (guardada — dejar vacío para mantener)" : "API key"}
-          className={inputCls}
-        />
-        <input name="model" placeholder="Modelo (opcional)" defaultValue={model ?? ""} className={inputCls} />
+      <input type="hidden" name="provider" value={selected} />
+      <div className="grid grid-cols-3 gap-2">
+        {options.map((opt) => (
+          <button
+            key={opt.value}
+            type="button"
+            onClick={() => setSelected(opt.value)}
+            className={`flex flex-col items-start gap-1 rounded-lg border p-3 text-left transition-colors ${
+              selected === opt.value
+                ? "border-primary bg-primary/20"
+                : "border-zinc-800 hover:border-zinc-700"
+            }`}
+          >
+            <span className={`text-sm font-semibold ${selected === opt.value ? "text-secondary" : "text-body"}`}>
+              {opt.title}
+            </span>
+            <span className="text-xs text-subtle">{opt.desc}</span>
+          </button>
+        ))}
       </div>
+      {selected !== "" && (
+        <div className="flex flex-col gap-2">
+          <input
+            name="key"
+            type="password"
+            placeholder={hasKey ? "•••••••• (guardada — dejar vacío para mantener)" : "API key"}
+            className={inputCls}
+          />
+          <input name="model" placeholder="Modelo (opcional)" defaultValue={model ?? ""} className={inputCls} />
+        </div>
+      )}
       <Msg state={state} />
       <button type="submit" disabled={pending} className={btnCls}>
         <GearSix weight="fill" className="h-4 w-4" /> Guardar configuración

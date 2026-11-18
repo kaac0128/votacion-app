@@ -1,0 +1,35 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e15]:
+    - heading "🎮 Votación GOTY" [level=1] [ref=e16]
+    - generic [ref=e17]:
+      - paragraph [ref=e18]: Hola, VP3
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - heading "Crear sala" [level=2] [ref=e21]
+          - generic [ref=e22]:
+            - generic [ref=e23]: Título
+            - textbox "Título" [ref=e24]:
+              - /placeholder: GOTY 2026
+          - generic [ref=e25]:
+            - generic [ref=e26]: Tema (contexto)
+            - textbox "Game Awards 2026" [ref=e27]
+          - generic [ref=e28]:
+            - generic [ref=e29]: Fecha límite de votación (opcional)
+            - textbox "Fecha límite de votación (opcional)" [ref=e30]
+          - button "Crear sala" [ref=e31]
+        - generic [ref=e32]:
+          - heading "Entrar con código" [level=2] [ref=e33]
+          - textbox "ABC123" [ref=e34]
+          - button "Entrar a la sala" [ref=e35]
+      - generic [ref=e36]:
+        - heading "Mis salas" [level=2] [ref=e37]
+        - list [ref=e38]:
+          - listitem [ref=e39]:
+            - link "Sala Tiebreak sin fecha límite 🟢 Abierta" [ref=e40] [cursor=pointer]:
+              - /url: /rooms/c766e251-b2c9-4eee-b4c5-efff8b4ec166
+              - generic [ref=e41]:
+                - generic [ref=e42]: Sala Tiebreak
+                - generic [ref=e43]: sin fecha límite
+              - generic [ref=e44]: 🟢 Abierta
+      - button "Cerrar sesión" [ref=e45]
+  - alert [ref=e14]: 🎮 Votación GOTY

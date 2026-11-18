@@ -1,0 +1,39 @@
+- generic [active] [ref=f3e1]:
+  - generic [ref=f3e3]:
+    - banner [ref=f3e4]:
+      - link "← Sala Voto" [ref=f3e5] [cursor=pointer]:
+        - /url: /rooms/d406cda8-317e-42fb-8d19-324f5d292194
+      - heading "🗳 GOTY" [level=1] [ref=f3e6]
+      - paragraph [ref=f3e7]: Podés cambiar tu voto hasta 18 nov 2026, 10:57 a. m.
+    - generic [ref=f3e8]:
+      - list [ref=f3e9]:
+        - listitem [ref=f3e10]:
+          - generic [ref=f3e11] [cursor=pointer]:
+            - radio "🎮 Juego A desc Juego A" [ref=f3e12]
+            - generic [ref=f3e13]: 🎮
+            - generic [ref=f3e14]:
+              - generic [ref=f3e15]: Juego A
+              - paragraph [ref=f3e16]: desc Juego A
+        - listitem [ref=f3e17]:
+          - generic [ref=f3e18] [cursor=pointer]:
+            - radio "🎮 Juego B desc Juego B" [ref=f3e19]
+            - generic [ref=f3e20]: 🎮
+            - generic [ref=f3e21]:
+              - generic [ref=f3e22]: Juego B
+              - paragraph [ref=f3e23]: desc Juego B
+        - listitem [ref=f3e24]:
+          - generic [ref=f3e25] [cursor=pointer]:
+            - radio "🎮 Juego C invalido desc Juego C invalido" [checked] [ref=f3e26]
+            - generic [ref=f3e27]: 🎮
+            - generic [ref=f3e28]:
+              - generic [ref=f3e29]: Juego C invalido
+              - paragraph [ref=f3e30]: desc Juego C invalido
+      - generic [ref=f3e31]:
+        - button "🔄 Cambiar voto" [ref=f3e32]
+        - button "🎲 Aleatorio" [ref=f3e33]
+    - generic [ref=f3e34]:
+      - heading "Ya votaron" [level=2] [ref=f3e35]
+      - list [ref=f3e36]:
+        - listitem [ref=f3e37]: VPlayer → Juego C invalido
+      - paragraph [ref=f3e38]: Podés cambiar tu voto hasta el cierre.
+  - alert [ref=f3e39]

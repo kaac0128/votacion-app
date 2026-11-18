@@ -1,0 +1,19 @@
+- generic [active] [ref=f3e1]:
+  - generic [ref=f3e3]:
+    - banner [ref=f3e4]:
+      - link "← Sala Kahoot" [ref=f3e5] [cursor=pointer]:
+        - /url: /rooms/479d64cb-5316-4e75-9a46-213211e74541
+      - heading "🗳 GOTY" [level=1] [ref=f3e6]
+      - paragraph [ref=f3e7]: 🔒 Votación cerrada
+    - generic [ref=f3e12]:
+      - 'heading "🏆 Resultado: GOTY Game" [level=2] [ref=f3e13]'
+      - paragraph [ref=f3e14]: "Tu elección: GOTY Game → ✅ +10 puntos"
+      - paragraph [ref=f3e15]: Publicación 1 · 👍 0 de acuerdo · 🚩 0 reportes (se necesitan 1)
+      - generic [ref=f3e16]:
+        - button "👍 De acuerdo" [ref=f3e18]
+        - button "🚩 Reportar" [ref=f3e20]
+      - generic [ref=f3e21]:
+        - heading "Lo que votaron todos" [level=3] [ref=f3e22]
+        - list [ref=f3e23]:
+          - listitem [ref=f3e24]: VP1 → GOTY Game ✅
+  - alert [ref=f3e11]

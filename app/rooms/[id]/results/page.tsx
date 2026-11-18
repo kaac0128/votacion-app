@@ -1,0 +1,148 @@
+import { Suspense } from "react";
+import { notFound, redirect } from "next/navigation";
+import Link from "next/link";
+import { pool } from "@/lib/db";
+import { getUser } from "@/lib/auth";
+import { ActionButton } from "@/components/admin-forms";
+import ResultForm from "@/components/result-form";
+import { closeVoting, reopenVoting, revealNext } from "./actions";
+
+const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const MAX_ATTEMPTS = 4;
+const reportsNeeded = (participants: number) => Math.ceil(participants / 2);
+
+async function ResultsPanel({ roomId }: { roomId: string }) {
+  const user = await getUser();
+  if (!user) redirect("/login");
+
+  const { rows: roomRows } = await pool.query<{ title: string; admin_user_id: string; status: string }>(
+    "select title, admin_user_id, status from rooms where id = $1",
+    [roomId]
+  );
+  const room = roomRows[0];
+  if (!room) notFound();
+  if (room.admin_user_id !== user.id) redirect(`/rooms/${roomId}`);
+
+  const { rows: participantsRows } = await pool.query<{ n: number }>(
+    "select count(*) as n from room_members where room_id = $1 and user_id <> $2",
+    [roomId, room.admin_user_id]
+  );
+  const participants = participantsRows[0].n;
+
+  const { rows: categories } = await pool.query<{ id: string; name: string }>(
+    "select id, name from categories where room_id = $1 order by sort, name",
+    [roomId]
+  );
+  const { rows: items } = await pool.query<{ id: string; category_id: string; title: string; is_invalid: boolean }>(
+    "select id, category_id, title, is_invalid from items where category_id in (select id from categories where room_id = $1) order by sort, title",
+    [roomId]
+  );
+  const { rows: results } = await pool.query<{ category_id: string; winner_item_id: string; attempt: number; revealed: boolean }>(
+    "select category_id, winner_item_id, attempt, revealed from category_results where category_id in (select id from categories where room_id = $1)",
+    [roomId]
+  );
+  const { rows: feedback } = await pool.query<{ category_id: string; attempt: number; verdict: string; n: string }>(
+    "select category_id, attempt, verdict, count(*) as n from result_feedback where category_id in (select id from categories where room_id = $1) group by category_id, attempt, verdict",
+    [roomId]
+  );
+
+  return (
+    <div className="flex w-full max-w-3xl flex-col gap-8 px-6 py-10">
+      <header>
+        <Link href={`/rooms/${roomId}`} className="text-sm text-zinc-400 hover:underline dark:text-zinc-500">
+          ← Volver a la sala
+        </Link>
+        <h1 className="text-2xl font-bold">🏆 Resultados: {room.title}</h1>
+        <p className="text-sm text-zinc-400 dark:text-zinc-500">
+          {participants} participantes · se necesita {reportsNeeded(participants)} reporte(s) para forzar una corrección · máx 3 correcciones por categoría
+        </p>
+      </header>
+
+      <div className="flex flex-wrap gap-3">
+        {room.status === "open" ? (
+          <ActionButton action={closeVoting} fields={{ roomId }} label="🔒 Cerrar votación ahora" confirm="¿Cerrar la votación? Nadie podrá votar más." />
+        ) : (
+          <ActionButton action={reopenVoting} fields={{ roomId }} label="🔓 Reabrir votación" confirm="¿Reabrir la votación para que puedan cambiar sus votos?" />
+        )}
+        <ActionButton action={revealNext} fields={{ roomId }} label="🎬 Revelar siguiente" />
+        <Link
+          href={`/rooms/${roomId}/reveal`}
+          className="self-center text-sm underline text-zinc-500 dark:text-zinc-400"
+        >
+          🎬 Ir a la pantalla de revelación en vivo
+        </Link>
+      </div>
+
+      {categories.length === 0 && (
+        <p className="text-sm text-zinc-400 dark:text-zinc-500">No hay categorías cargadas todavía.</p>
+      )}
+
+      <ul className="flex flex-col gap-4">
+        {categories.map((cat) => {
+          const catItems = items.filter((i) => i.category_id === cat.id);
+          const result = results.find((r) => r.category_id === cat.id);
+          const attempt = result?.attempt ?? 0;
+          const final = attempt >= MAX_ATTEMPTS;
+          const reports = feedback.find((f) => f.category_id === cat.id && f.attempt === attempt && f.verdict === "report")?.n ?? "0";
+          const agrees = feedback.find((f) => f.category_id === cat.id && f.attempt === attempt && f.verdict === "agree")?.n ?? "0";
+          const dispute = Number(reports) >= reportsNeeded(participants);
+          return (
+            <li key={cat.id} className="rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h3 className="font-semibold">{cat.name}</h3>
+                <span className="text-xs">
+                  {!result ? (
+                    <span className="text-zinc-400 dark:text-zinc-500">sin publicar</span>
+                  ) : final ? (
+                    <span className="rounded bg-zinc-200 px-2 py-0.5 dark:bg-zinc-700">FINAL</span>
+                  ) : dispute ? (
+                    <span className="rounded bg-red-100 px-2 py-0.5 text-red-700 dark:bg-red-900/40 dark:text-red-300">
+                      ⚠️ EN DISPUTA ({reports}/{reportsNeeded(participants)}) — corrige y republica
+                    </span>
+                  ) : (
+                    <span className="text-zinc-400 dark:text-zinc-500">
+                      {result.revealed ? "✅ revelada · " : "🙈 oculta · "}
+                      publicación {attempt} · 👍 {agrees} · 🚩 {reports}
+                    </span>
+                  )}
+                </span>
+              </div>
+              {result && (
+                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                  Ganador publicado: <b>{items.find((i) => i.id === result.winner_item_id)?.title ?? "?"}</b>
+                </p>
+              )}
+              {catItems.length > 0 && !final && (
+                <ResultForm
+                  key={attempt}
+                  roomId={roomId}
+                  categoryId={cat.id}
+                  items={catItems}
+                  currentWinnerId={result?.winner_item_id ?? null}
+                  isCorrection={attempt > 0}
+                />
+              )}
+              {catItems.length === 0 && <p className="mt-2 text-sm text-zinc-400 dark:text-zinc-500">Sin objetos.</p>}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+export default function ResultsPage({ params }: { params: Promise<{ id: string }> }) {
+  return (
+    <div className="flex flex-1 flex-col items-center">
+      <Suspense fallback={<p className="py-16 text-sm text-zinc-400">Cargando resultados...</p>}>
+        <ResultsInner params={params} />
+      </Suspense>
+    </div>
+  );
+}
+
+async function ResultsInner({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  if (!uuid.test(id)) notFound();
+  return <ResultsPanel roomId={id} />;
+}

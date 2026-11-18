@@ -1,0 +1,27 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e80]:
+    - banner [ref=f1e81]:
+      - link "← Volver al panel" [ref=f1e82] [cursor=pointer]:
+        - /url: /rooms/8f39443c-04fa-4db9-82f3-2aca73f638ad/admin
+      - 'heading "🃏 Carrusel: GOTY" [level=1] [ref=f1e83]'
+      - paragraph [ref=f1e84]: Objeto 2 de 4 — quedan 3 sin describir
+    - generic [ref=f1e85]:
+      - generic [ref=f1e86]:
+        - generic [ref=f1e87]: Título
+        - textbox "Título" [ref=f1e88]: "Hollow Knight: Silksong"
+      - generic [ref=f1e89]:
+        - generic [ref=f1e90]: Descripción
+        - textbox "Descripción" [ref=f1e91]:
+          - /placeholder: Breve descripción gamer (podés generarla con IA)
+      - generic [ref=f1e92]:
+        - generic [ref=f1e93]: URL de imagen (opcional)
+        - textbox "URL de imagen (opcional)" [ref=f1e94]
+      - generic [ref=f1e95]:
+        - checkbox "Inválido (vale 0 siempre)" [ref=f1e96]
+        - text: Inválido (vale 0 siempre)
+      - generic [ref=f1e97]:
+        - button "✔ Guardar y seguir" [ref=f1e98]
+        - button "⏭ Saltar" [ref=f1e99]
+        - button "🤖 Generar con IA" [ref=f1e101]
+      - paragraph [ref=f1e102]: Saltar guarda lo cargado hasta ahora y pasa al siguiente. Podés regenerar descripciones después desde el panel.
+  - alert [ref=f1e22]: Votación GOTY

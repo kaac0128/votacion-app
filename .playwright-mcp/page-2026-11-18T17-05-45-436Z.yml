@@ -1,0 +1,5 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e15]:
+    - heading "🎮 Votación GOTY" [level=1] [ref=e16]
+    - paragraph [ref=e17]: Cargando...
+  - alert [ref=e4]: 🎮 Votación GOTY

@@ -1,0 +1,66 @@
+- generic [active] [ref=f3e1]:
+  - generic [ref=f3e3]:
+    - banner [ref=f3e4]:
+      - link "← Volver" [ref=f3e5] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f3e6]:
+        - heading "Sala Tiebreak" [level=1] [ref=f3e7]
+        - generic [ref=f3e8]: 🟢 Abierta
+      - paragraph [ref=f3e9]: GOTY
+      - paragraph [ref=f3e10]: Sin fecha límite
+    - generic [ref=f3e11]:
+      - paragraph [ref=f3e12]: Clasificación en vivo
+      - generic [ref=f3e14]:
+        - generic [ref=f3e15]: 👑
+        - generic [ref=f3e16]: VP2
+        - generic [ref=f3e17]: 🥇 10 pts
+      - generic [ref=f3e18]: 🥈 VP4 · 0 pts
+    - generic [ref=f3e20]:
+      - heading "🪨 Ronda 2" [level=2] [ref=f3e21]
+      - paragraph [ref=f3e22]: "Elecciones: 3/3 (ya votaste esta ronda)"
+      - paragraph [ref=f3e23]: "Ronda 1: siguió 3"
+    - generic [ref=f3e24]:
+      - heading "Participantes (5)" [level=2] [ref=f3e25]
+      - list [ref=f3e26]:
+        - listitem [ref=f3e27]:
+          - generic [ref=f3e28]: V
+          - generic [ref=f3e29]: 👑 VAdmin
+        - listitem [ref=f3e30]:
+          - generic [ref=f3e31]: V
+          - generic [ref=f3e32]: VP1
+        - listitem [ref=f3e33]:
+          - generic [ref=f3e34]: V
+          - generic [ref=f3e35]: VP2
+        - listitem [ref=f3e36]:
+          - generic [ref=f3e37]: V
+          - generic [ref=f3e38]: VP3
+        - listitem [ref=f3e39]:
+          - generic [ref=f3e40]: V
+          - generic [ref=f3e41]: VP4
+    - generic [ref=f3e42]:
+      - heading "Puntos" [level=2] [ref=f3e43]
+      - list [ref=f3e44]:
+        - listitem [ref=f3e45]:
+          - generic [ref=f3e46]: VP1
+          - generic [ref=f3e47]: 10 pts
+        - listitem [ref=f3e48]:
+          - generic [ref=f3e49]: VP2
+          - generic [ref=f3e50]: 10 pts
+        - listitem [ref=f3e51]:
+          - generic [ref=f3e52]: VP3
+          - generic [ref=f3e53]: 10 pts
+        - listitem [ref=f3e54]:
+          - generic [ref=f3e55]: 👑 VAdmin
+          - generic [ref=f3e56]: 0 pts
+        - listitem [ref=f3e57]:
+          - generic [ref=f3e58]: VP4
+          - generic [ref=f3e59]: 0 pts
+    - generic [ref=f3e60]:
+      - heading "Categorías" [level=2] [ref=f3e61]
+      - list [ref=f3e62]:
+        - listitem [ref=f3e63]:
+          - link "GOTY 4 nominados →" [ref=f3e64] [cursor=pointer]:
+            - /url: /rooms/c766e251-b2c9-4eee-b4c5-efff8b4ec166/category/8d3385b3-83d2-4e02-b0c6-526e3b5fd096
+            - generic [ref=f3e65]: GOTY
+            - generic [ref=f3e66]: 4 nominados →
+  - alert [ref=f3e67]

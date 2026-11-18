@@ -1,0 +1,28 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e15]:
+    - heading "🎮 Votación GOTY" [level=1] [ref=f2e16]
+    - generic [ref=f2e18]:
+      - paragraph [ref=f2e19]: Hola, AdminTest
+      - generic [ref=f2e20]:
+        - generic [ref=f2e21]:
+          - heading "Crear sala" [level=2] [ref=f2e22]
+          - generic [ref=f2e23]:
+            - generic [ref=f2e24]: Título
+            - textbox "Título" [ref=f2e25]:
+              - /placeholder: GOTY 2026
+          - generic [ref=f2e26]:
+            - generic [ref=f2e27]: Tema (contexto)
+            - textbox "Game Awards 2026" [ref=f2e28]
+          - generic [ref=f2e29]:
+            - generic [ref=f2e30]: Fecha límite de votación (opcional)
+            - textbox "Fecha límite de votación (opcional)" [ref=f2e31]
+          - button "Crear sala" [ref=f2e32]
+        - generic [ref=f2e33]:
+          - heading "Entrar con código" [level=2] [ref=f2e34]
+          - textbox "ABC123" [ref=f2e35]
+          - button "Entrar a la sala" [ref=f2e36]
+      - generic [ref=f2e37]:
+        - heading "Mis salas" [level=2] [ref=f2e38]
+        - paragraph [ref=f2e39]: Todavía no estás en ninguna sala. Creá una o entrá con un código.
+      - button "Cerrar sesión" [ref=f2e40]
+  - alert [ref=f2e14]: 🎮 Votación GOTY

@@ -1,0 +1,27 @@
+- generic [active] [ref=f2e1]:
+  - alert [ref=f2e26]
+  - generic [ref=f2e28]:
+    - banner [ref=f2e29]:
+      - link "← Volver al panel" [ref=f2e30] [cursor=pointer]:
+        - /url: /rooms/8f39443c-04fa-4db9-82f3-2aca73f638ad/admin
+      - 'heading "🃏 Carrusel: GOTY" [level=1] [ref=f2e31]'
+      - paragraph [ref=f2e32]: Objeto 3 de 4 — quedan 2 sin describir
+    - generic [ref=f2e33]:
+      - generic [ref=f2e34]:
+        - generic [ref=f2e35]: Título
+        - textbox "Título" [ref=f2e36]: Hades II
+      - generic [ref=f2e37]:
+        - generic [ref=f2e38]: Descripción
+        - textbox "Descripción" [ref=f2e39]:
+          - /placeholder: Breve descripción gamer (podés generarla con IA)
+      - generic [ref=f2e40]:
+        - generic [ref=f2e41]: URL de imagen (opcional)
+        - textbox "URL de imagen (opcional)" [ref=f2e42]
+      - generic [ref=f2e43]:
+        - checkbox "Inválido (vale 0 siempre)" [ref=f2e44]
+        - text: Inválido (vale 0 siempre)
+      - generic [ref=f2e45]:
+        - button "✔ Guardar y seguir" [ref=f2e46]
+        - button "⏭ Saltar" [ref=f2e47]
+        - button "🤖 Generar con IA" [ref=f2e49]
+      - paragraph [ref=f2e50]: Saltar guarda lo cargado hasta ahora y pasa al siguiente. Podés regenerar descripciones después desde el panel.

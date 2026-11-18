@@ -1,0 +1,17 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e3]:
+    - banner [ref=f4e4]:
+      - link "← Sala Voto" [ref=f4e5] [cursor=pointer]:
+        - /url: /rooms/fcdf61f1-c4ae-4012-b06a-7a80c59338a1
+      - heading "🗳 GOTY" [level=1] [ref=f4e6]
+      - paragraph [ref=f4e7]: 🔒 Votación cerrada
+    - generic [ref=f4e8]:
+      - 'heading "🏆 Resultado: Juego B" [level=2] [ref=f4e9]'
+      - paragraph [ref=f4e10]: "Tu elección: Juego A → ❌ 0 puntos"
+      - paragraph [ref=f4e11]: 🔒 Resultado FINAL (se agotaron las 3 correcciones)
+      - generic [ref=f4e12]:
+        - heading "Lo que votaron todos" [level=3] [ref=f4e13]
+        - list [ref=f4e14]:
+          - listitem [ref=f4e15]: VP1 → Juego A
+          - listitem [ref=f4e16]: VP2 → Juego B ✅
+  - alert [ref=f4e17]

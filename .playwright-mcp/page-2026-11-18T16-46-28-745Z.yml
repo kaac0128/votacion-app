@@ -1,0 +1,64 @@
+- generic [active] [ref=f2e1]:
+  - alert [ref=f2e26]: Votación GOTY
+  - generic [ref=f2e99]:
+    - banner [ref=f2e100]:
+      - link "← Volver a la sala" [ref=f2e101] [cursor=pointer]:
+        - /url: /rooms/8f39443c-04fa-4db9-82f3-2aca73f638ad
+      - 'heading "⚙️ Administrar: GOTY 2026" [level=1] [ref=f2e102]'
+    - generic [ref=f2e103]:
+      - heading "🤖 IA para descripciones" [level=3] [ref=f2e104]
+      - generic [ref=f2e105]:
+        - combobox [ref=f2e106]:
+          - option "Sin IA" [selected]
+          - option "Google Gemini"
+          - option "OpenRouter"
+        - textbox "API key" [ref=f2e107]
+        - textbox "Modelo (opcional)" [ref=f2e108]
+      - button "Guardar configuración" [ref=f2e109]
+      - paragraph [ref=f2e110]: La clave se guarda en la base de datos y solo se usa desde el servidor. Nunca viaja al navegador.
+    - generic [ref=f2e111]:
+      - heading "Categorías" [level=2] [ref=f2e112]
+      - generic [ref=f2e113]:
+        - 'textbox "Nueva categoría (ej: GOTY)" [ref=f2e114]'
+        - button "Agregar" [ref=f2e115]
+      - generic [ref=f2e116]:
+        - generic [ref=f2e117]:
+          - heading "GOTY (4)" [level=3] [ref=f2e118]:
+            - text: GOTY
+            - generic [ref=f2e119]: (4)
+          - button "Borrar categoría" [ref=f2e121]
+        - list [ref=f2e122]:
+          - listitem [ref=f2e123]:
+            - generic [ref=f2e124]:
+              - text: "Clair Obscur: Expedition 33"
+              - paragraph [ref=f2e125]: RPG por turnos con sistema de parry y arte de Belle Époque.
+            - generic [ref=f2e126]:
+              - generic [ref=f2e127]:
+                - button "🤖 Descripción" [ref=f2e128]
+                - text: Primero configurá la clave de IA
+              - button "✕" [ref=f2e130]
+          - listitem [ref=f2e131]:
+            - generic [ref=f2e132]:
+              - text: "Hollow Knight: Silksong"
+              - paragraph [ref=f2e133]: sin descripción
+            - generic [ref=f2e134]:
+              - button "🤖 Descripción" [ref=f2e136]
+              - button "✕" [ref=f2e138]
+          - listitem [ref=f2e139]:
+            - generic [ref=f2e140]:
+              - text: Hades II
+              - paragraph [ref=f2e141]: sin descripción
+            - generic [ref=f2e142]:
+              - button "🤖 Descripción" [ref=f2e144]
+              - button "✕" [ref=f2e146]
+          - listitem [ref=f2e147]:
+            - generic [ref=f2e148]:
+              - text: Death Stranding 2
+              - paragraph [ref=f2e149]: sin descripción
+            - generic [ref=f2e150]:
+              - button "🤖 Descripción" [ref=f2e152]
+              - button "✕" [ref=f2e154]
+        - group [ref=f2e155]:
+          - generic "+ Agregar objeto uno a uno" [ref=f2e156] [cursor=pointer]
+        - group [ref=f2e157]:
+          - generic "+ Carga masiva (pegar lista)" [ref=f2e158] [cursor=pointer]

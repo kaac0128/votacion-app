@@ -153,7 +153,7 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
   const reopenVisible = !anyPublished && !votingOpen;
 
   return (
-    <div className="flex w-full max-w-3xl flex-col gap-8 px-6 py-10">
+    <div className="flex w-full max-w-3xl flex-col gap-8 px-6 pt-10 pb-24">
       <header className="flex flex-col gap-2">
         <Link href="/" className="text-sm text-zinc-400 hover:underline dark:text-zinc-500">
           ← Volver

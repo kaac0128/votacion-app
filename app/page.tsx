@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import AppLogo from "@/components/app-logo";
 import { getUser } from "@/lib/auth";
 import { pool } from "@/lib/db";
 import LogoutButton from "@/components/logout-button";
@@ -129,8 +130,8 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
 
 export default function Home({ searchParams }: { searchParams: Promise<{ c?: string }> }) {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-6 px-6 py-16 text-center">
-      <h1 className="text-4xl font-bold tracking-tight">🎮 Votación GOTY</h1>
+    <div className="flex flex-1 flex-col items-center justify-center gap-6 px-6 pt-16 pb-24 text-center">
+      <AppLogo />
       <Suspense fallback={<p className="text-sm text-zinc-400">Cargando...</p>}>
         <RoomsArea searchParams={searchParams} />
       </Suspense>

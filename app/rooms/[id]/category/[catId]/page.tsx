@@ -118,7 +118,7 @@ async function CategoryVote({
     err === "invalid" ? "Ese objeto no pertenece a esta categoría." : null;
   const myPick = items.find((i) => i.id === myVoteId);
   return (
-    <div className="flex w-full max-w-xl flex-col gap-6 px-6 py-10">
+    <div className="flex w-full max-w-xl flex-col gap-6 px-6 pt-10 pb-24">
       <header>
         <Link href={`/rooms/${roomId}`} className="text-sm text-zinc-400 hover:underline dark:text-zinc-500">
           ← {room.title}

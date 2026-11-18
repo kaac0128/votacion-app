@@ -44,7 +44,7 @@ async function AdminPanel({ roomId }: { roomId: string }) {
   );
 
   return (
-    <div className="flex w-full max-w-3xl flex-col gap-8 px-6 py-10">
+    <div className="flex w-full max-w-3xl flex-col gap-8 px-6 pt-10 pb-24">
       <header>
         <Link href={`/rooms/${roomId}`} className="text-sm text-zinc-400 hover:underline dark:text-zinc-500">
           ← Volver a la sala

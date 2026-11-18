@@ -53,7 +53,7 @@ async function RevealScreen({ roomId }: { roomId: string }) {
   const canClose = (await pool.query<{ status: string }>("select status from rooms where id = $1", [roomId])).rows[0]?.status === "results";
 
   return (
-    <div className="flex w-full max-w-3xl flex-col gap-8 px-6 py-10">
+    <div className="flex w-full max-w-3xl flex-col gap-8 px-6 pt-10 pb-24">
       <AutoRefresh />
       <header>
         <Link href={`/rooms/${roomId}/results`} className="text-sm text-zinc-400 hover:underline dark:text-zinc-500">

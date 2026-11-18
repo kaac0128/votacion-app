@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Votación GOTY",
-  description: "Votación de los Game Awards entre amigos, con apuesta.",
+  title: "La Corona — votación y apuesta entre amigos",
+  description: "Votá los premios con tus amigos, apostá y coroná al ganador con la coronita animada.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

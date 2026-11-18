@@ -178,12 +178,20 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
           </p>
         )}
         {isAdmin && (
-          <Link
-            href={`/rooms/${room.id}/results`}
-            className="self-start rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
-          >
-            🏆 Cargar resultados
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href={`/rooms/${room.id}/admin`}
+              className="self-start rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-900"
+            >
+              ⚙️ Administrar sala
+            </Link>
+            <Link
+              href={`/rooms/${room.id}/results`}
+              className="self-start rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+            >
+              🏆 Cargar resultados
+            </Link>
+          </div>
         )}
       </header>
 
@@ -339,7 +347,7 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
         {categories.length === 0 ? (
           <p className="text-sm text-zinc-400 dark:text-zinc-500">
             {isAdmin
-              ? "Todavía no creaste categorías (Épica 3)."
+              ? "Todavía no creaste categorías. Entrá a ⚙️ Administrar sala para cargarlas."
               : "El admin todavía no cargó categorías."}
           </p>
         ) : (

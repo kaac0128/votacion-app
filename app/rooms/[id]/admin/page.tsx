@@ -44,7 +44,7 @@ async function AdminPanel({ roomId }: { roomId: string }) {
   );
 
   return (
-    <div className="flex w-full max-w-3xl flex-col gap-8 px-6 pt-10 pb-24">
+    <div className="flex w-full max-w-6xl flex-col gap-10 px-8 pt-12 pb-32">
       <header>
         <Link href={`/rooms/${roomId}`} className="text-sm text-subtle transition-colors hover:text-body">
           ← Volver a la sala
@@ -52,40 +52,44 @@ async function AdminPanel({ roomId }: { roomId: string }) {
         <h1 className="font-display text-2xl tracking-wide">Administrar: {room.title}</h1>
       </header>
 
-      <AiConfigForm roomId={roomId} provider={room.ai_provider} hasKey={Boolean(room.ai_key)} model={room.ai_model} />
+      <div className="grid gap-10 lg:grid-cols-[360px_1fr] lg:items-start">
+        <aside className="flex flex-col gap-6">
+          <AiConfigForm roomId={roomId} provider={room.ai_provider} hasKey={Boolean(room.ai_key)} model={room.ai_model} />
+        </aside>
 
-      <section className="flex flex-col gap-6">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-subtle">Categorías</h2>
-        <AddCategoryForm roomId={roomId} />
+        <section className="flex flex-col gap-6">
+          <h2 className="border-b border-line/50 pb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Categorías</h2>
+          <AddCategoryForm roomId={roomId} />
 
-        {categories.map((cat) => {
-          const catItems = items.filter((i) => i.category_id === cat.id);
-          return (
-            <div key={cat.id} className="rounded-xl border border-zinc-800 bg-card p-4">
-              <div className="flex items-center justify-between gap-2">
-                <h3 className="font-semibold">
-                  {cat.name} <span className="text-sm font-normal text-subtle">({catItems.length})</span>
-                </h3>
-                <ActionButton
-                  action={deleteCategory}
-                  fields={{ roomId, categoryId: cat.id }}
-                  label="Borrar categoría"
-                  confirm={`¿Borrar la categoría "${cat.name}" y todos sus objetos?`}
-                />
+          {categories.map((cat) => {
+            const catItems = items.filter((i) => i.category_id === cat.id);
+            return (
+              <div key={cat.id} className="rounded-xl border border-line/50 bg-card p-5">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="font-semibold">
+                    {cat.name} <span className="text-sm font-normal text-subtle">({catItems.length})</span>
+                  </h3>
+                  <ActionButton
+                    action={deleteCategory}
+                    fields={{ roomId, categoryId: cat.id }}
+                    label="Borrar categoría"
+                    confirm={`¿Borrar la categoría "${cat.name}" y todos sus objetos?`}
+                  />
+                </div>
+                {catItems.length > 0 && (
+                  <ul className="mt-3 flex flex-col gap-2">
+                    {catItems.map((item) => (
+                      <ItemRow key={item.id} roomId={roomId} categoryId={cat.id} item={item} />
+                    ))}
+                  </ul>
+                )}
+                <AddItemForm roomId={roomId} categoryId={cat.id} />
+                <BulkForm roomId={roomId} categoryId={cat.id} />
               </div>
-              {catItems.length > 0 && (
-                <ul className="mt-3 flex flex-col gap-2">
-                  {catItems.map((item) => (
-                    <ItemRow key={item.id} roomId={roomId} categoryId={cat.id} item={item} />
-                  ))}
-                </ul>
-              )}
-              <AddItemForm roomId={roomId} categoryId={cat.id} />
-              <BulkForm roomId={roomId} categoryId={cat.id} />
-            </div>
-          );
-        })}
-      </section>
+            );
+          })}
+        </section>
+      </div>
     </div>
   );
 }

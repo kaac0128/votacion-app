@@ -32,7 +32,7 @@ export default function AuthForm({ mode, redirectTo = "/" }: { mode: "login" | "
   }
 
   return (
-    <form onSubmit={submit} className="flex w-full max-w-sm flex-col gap-4 rounded-xl border border-line/40 bg-card p-6">
+    <form onSubmit={submit} className="flex w-full max-w-sm flex-col gap-4 rounded-xl border border-line/50 bg-card p-6">
       <div>
         <label htmlFor="name" className="mb-1 block text-sm font-medium">
           Nombre
@@ -45,7 +45,7 @@ export default function AuthForm({ mode, redirectTo = "/" }: { mode: "login" | "
           minLength={2}
           maxLength={20}
           autoComplete="username"
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-900/80 px-3 py-2 outline-none transition-colors focus:border-primary"
+          className="w-full rounded-lg border border-primary/40 bg-zinc-900/80 px-3 py-2 outline-none transition-colors focus:border-primary"
         />
       </div>
       <div>
@@ -61,7 +61,7 @@ export default function AuthForm({ mode, redirectTo = "/" }: { mode: "login" | "
           minLength={4}
           maxLength={72}
           autoComplete={mode === "login" ? "current-password" : "new-password"}
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-900/80 px-3 py-2 outline-none transition-colors focus:border-primary"
+          className="w-full rounded-lg border border-primary/40 bg-zinc-900/80 px-3 py-2 outline-none transition-colors focus:border-primary"
         />
       </div>
       {error && (
@@ -70,7 +70,7 @@ export default function AuthForm({ mode, redirectTo = "/" }: { mode: "login" | "
       <button
         type="submit"
         disabled={busy}
-        className="rounded-lg bg-primary px-4 py-2.5 font-semibold text-white transition-colors hover:bg-primary-hover disabled:opacity-50"
+        className="rounded-lg bg-zinc-100 px-4 py-2.5 font-semibold text-zinc-900 transition-colors hover:bg-white disabled:opacity-50"
       >
         {busy ? "..." : mode === "login" ? "Entrar" : "Crear cuenta"}
       </button>

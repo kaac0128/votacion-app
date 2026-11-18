@@ -10,12 +10,12 @@ function ErrorMsg({ state }: { state: ActionState }) {
 }
 
 const inputCls =
-  "w-full rounded-lg border border-zinc-700 bg-zinc-900/80 px-3 py-2 outline-none transition-colors focus:border-primary";
+  "w-full rounded-lg border border-primary/40 bg-zinc-900/80 px-3 py-2 outline-none transition-colors focus:border-primary";
 
 export function JoinRoomForm() {
   const [state, action, pending] = useActionState(joinRoom, null);
   return (
-    <form action={action} className="flex w-full max-w-sm flex-col gap-3 rounded-xl border border-line/40 bg-card p-4">
+    <form action={action} className="flex w-full max-w-sm flex-col gap-3 rounded-xl border border-line/50 bg-card p-4">
       <h2 className="flex items-center gap-2 font-display text-sm uppercase tracking-wide text-secondary">
         <Ticket weight="fill" className="h-4 w-4" /> Entrar con código
       </h2>
@@ -24,7 +24,7 @@ export function JoinRoomForm() {
         placeholder="ABC123"
         required
         maxLength={6}
-        className="w-full rounded-lg border border-zinc-700 bg-zinc-900/80 px-3 py-2 text-center text-xl font-mono uppercase tracking-widest outline-none transition-colors focus:border-primary"
+        className="w-full rounded-lg border border-primary/40 bg-zinc-900/80 px-3 py-2 text-center text-xl font-mono uppercase tracking-widest outline-none transition-colors focus:border-primary"
       />
       <ErrorMsg state={state} />
       <button
@@ -53,7 +53,7 @@ export function CreateRoomForm() {
           hidden.value = "";
         }
       }}
-      className="flex w-full max-w-sm flex-col gap-3 rounded-xl border border-line/40 bg-card p-4"
+      className="flex w-full max-w-sm flex-col gap-3 rounded-xl border border-line/50 bg-card p-4"
     >
       <h2 className="flex items-center gap-2 font-display text-sm uppercase tracking-wide text-secondary">
         <Crown weight="fill" className="h-4 w-4" /> Crear sala

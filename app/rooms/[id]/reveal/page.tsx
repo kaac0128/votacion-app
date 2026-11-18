@@ -54,7 +54,7 @@ async function RevealScreen({ roomId }: { roomId: string }) {
   const canClose = (await pool.query<{ status: string }>("select status from rooms where id = $1", [roomId])).rows[0]?.status === "results";
 
   return (
-    <div className="flex w-full max-w-3xl flex-col gap-8 px-6 pt-10 pb-24">
+    <div className="flex w-full max-w-6xl flex-col gap-10 px-8 pt-12 pb-32">
       <AutoRefresh />
       <header>
         <Link href={`/rooms/${roomId}/results`} className="text-sm text-subtle transition-colors hover:text-body">
@@ -81,7 +81,7 @@ async function RevealScreen({ roomId }: { roomId: string }) {
         )}
       </div>
 
-      <section className="rounded-xl border border-zinc-800 bg-card p-4">
+      <section className="rounded-xl border border-line/50 bg-card p-5">
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-subtle">
           Marcador en vivo
         </h2>
@@ -98,7 +98,7 @@ async function RevealScreen({ roomId }: { roomId: string }) {
                   </span>
                   <span className="font-bold">{pts} pts</span>
                 </div>
-                <div className="h-3 w-full overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
+                <div className="h-3 w-full overflow-hidden rounded-full bg-zinc-200 dark:bg-primary/20">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 transition-all duration-700"
                     style={{ width: `${pct}%` }}
@@ -114,9 +114,9 @@ async function RevealScreen({ roomId }: { roomId: string }) {
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-subtle">
           Categorías
         </h2>
-        <ul className="flex flex-col gap-2 text-sm">
+        <ul className="grid gap-2 text-sm sm:grid-cols-2">
           {results.map((r) => (
-            <li key={r.category_id} className="flex items-center justify-between rounded-lg border border-zinc-800 bg-card/60 px-3 py-2">
+            <li key={r.category_id} className="flex items-center justify-between rounded-lg border border-line/50 bg-card/60 px-3 py-2">
               <span>{r.name}</span>
               <span>
                 {r.revealed ? (

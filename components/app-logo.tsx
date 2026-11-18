@@ -11,7 +11,7 @@ export default function AppLogo({ size = "big" }: { size?: "big" | "small" }) {
       >
         <GameController weight="fill" className={big ? "h-10 w-10 text-white" : "h-7 w-7 text-white"} />
       </span>
-      <h1 className={`font-display text-glow tracking-wide ${big ? "text-3xl" : "text-xl"}`}>
+      <h1 className={`font-display tracking-wide ${big ? "text-3xl" : "text-xl"}`}>
         La Corona
       </h1>
       {big && (

@@ -5,7 +5,7 @@ export default function GlobalError({ error, reset }: { error: Error; reset: () 
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
       <p className="text-5xl">🎮💥</p>
       <h2 className="text-xl font-bold">Se trabó la partida</h2>
-      <p className="max-w-md text-sm text-zinc-400">
+      <p className="max-w-md text-sm text-secondary">
         Algo falló inesperadamente. Probá de nuevo; si sigue roto, avisale al admin de la sala.
       </p>
       <button

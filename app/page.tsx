@@ -15,7 +15,7 @@ import {
 
 const STATUS_BADGE: Record<string, { icon: React.ReactNode; label: string; cls: string }> = {
   open: { icon: <Lightning weight="fill" className="h-3 w-3" />, label: "Abierta", cls: "text-emerald-400" },
-  results: { icon: <Trophy weight="fill" className="h-3 w-3" />, label: "Resultados", cls: "text-accent" },
+  results: { icon: <Trophy weight="fill" className="h-3 w-3" />, label: "Resultados", cls: "text-zinc-100" },
   closed: { icon: <Door weight="fill" className="h-3 w-3" />, label: "Cerrada", cls: "text-subtle" },
 };
 
@@ -47,13 +47,13 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
         <div className="flex gap-4">
           <Link
             href="/login"
-            className="rounded-lg bg-primary px-5 py-2.5 font-semibold text-white transition-colors hover:bg-primary-hover"
+            className="rounded-lg bg-zinc-100 px-5 py-2.5 font-semibold text-zinc-900 transition-colors hover:bg-white"
           >
             Entrar
           </Link>
           <Link
             href="/register"
-            className="rounded-lg border border-zinc-700 px-5 py-2.5 font-semibold transition-colors hover:bg-card-hover"
+            className="rounded-lg border border-primary/40 px-5 py-2.5 font-semibold transition-colors hover:bg-card-hover"
           >
             Crear cuenta
           </Link>
@@ -112,7 +112,7 @@ async function RoomsArea({ searchParams }: { searchParams: Promise<{ c?: string 
                 <li key={room.id}>
                   <Link
                     href={`/rooms/${room.id}`}
-                    className="flex items-center justify-between gap-3 rounded-xl border border-zinc-800 bg-card px-4 py-3 transition-all hover:border-primary hover:shadow-[0_0_20px_rgba(124,58,237,0.35)]"
+                    className="flex items-center justify-between gap-3 rounded-xl border border-line/50 bg-card px-4 py-3 transition-all hover:border-primary "
                   >
                     <span className="flex flex-col text-left">
                       <span className="flex items-center gap-1.5 font-semibold">

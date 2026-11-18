@@ -8,7 +8,7 @@ import { generateDescription, saveBulkItem } from "../../admin/actions";
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const inputCls =
-  "w-full rounded-lg border border-zinc-700 bg-zinc-900/80 px-3 py-2 outline-none transition-colors focus:border-primary";
+  "w-full rounded-lg border border-primary/40 bg-zinc-900/80 px-3 py-2 outline-none transition-colors focus:border-primary";
 const btnCls =
   "rounded-lg bg-primary px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-hover disabled:opacity-50";
 
@@ -48,7 +48,7 @@ async function Carousel({ roomId, categoryId }: { roomId: string; categoryId: st
   }
 
   return (
-    <div className="flex w-full max-w-xl flex-col gap-6 px-6 pt-10 pb-24">
+    <div className="flex w-full max-w-2xl flex-col gap-8 px-8 pt-12 pb-32">
       <header>
         <Link href={`/rooms/${roomId}/admin`} className="text-sm text-subtle transition-colors hover:text-body">
           ← Volver al panel
@@ -95,7 +95,7 @@ async function Carousel({ roomId, categoryId }: { roomId: string; categoryId: st
             type="submit"
             name="intent"
             value="skip"
-            className="rounded-lg border border-zinc-700 px-4 py-2 font-semibold transition-colors hover:bg-card-hover"
+            className="rounded-lg border border-primary/40 px-4 py-2 font-semibold transition-colors hover:bg-card-hover"
           >
             Saltar
           </button>

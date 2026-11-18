@@ -5,7 +5,7 @@ import { startTiebreak, submitPick, type ActionState } from "@/app/rooms/[id]/ti
 import { HandFist, HandPalm, HandPeace } from "@phosphor-icons/react/dist/ssr";
 
 const btn =
-  "flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-xl border-2 border-zinc-700 bg-card text-body transition-all hover:border-primary hover:text-secondary hover:shadow-[0_0_20px_rgba(124,58,237,0.4)] disabled:opacity-50";
+  "flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-xl border-2 border-primary/40 bg-card text-body transition-all hover:border-primary hover:text-secondary  disabled:opacity-50";
 
 function Msg({ state }: { state: ActionState }) {
   return (

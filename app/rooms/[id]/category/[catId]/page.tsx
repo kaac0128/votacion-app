@@ -119,7 +119,7 @@ async function CategoryVote({
     err === "invalid" ? "Ese objeto no pertenece a esta categoría." : null;
   const myPick = items.find((i) => i.id === myVoteId);
   return (
-    <div className="flex w-full max-w-xl flex-col gap-6 px-6 pt-10 pb-24">
+    <div className="flex w-full max-w-4xl flex-col gap-8 px-8 pt-12 pb-32">
       <header>
         <Link href={`/rooms/${roomId}`} className="text-sm text-subtle transition-colors hover:text-body">
           ← {room.title}
@@ -136,7 +136,7 @@ async function CategoryVote({
 
       {closed ? (
         resultHidden ? (
-          <div className="rounded-xl border border-zinc-800 bg-card p-6 text-center">
+          <div className="rounded-xl border border-line/50 bg-card p-6 text-center">
             <p className="text-lg font-semibold">El resultado ya está cargado</p>
             <p className="mt-1 text-sm text-subtle">
               El admin lo va a revelar en vivo. Podés seguir la revelación desde la sala.
@@ -144,7 +144,7 @@ async function CategoryVote({
           </div>
         ) : result ? (
           <section className="flex flex-col gap-3 rounded-xl border border-emerald-300 p-4 dark:border-emerald-800">
-            <h2 className="flex items-center gap-2 text-lg font-bold"><Trophy weight="fill" className="h-5 w-5 text-accent" /> Resultado: {result.winner_title}</h2>
+            <h2 className="flex items-center gap-2 text-lg font-bold"><Trophy weight="fill" className="h-5 w-5 text-zinc-100" /> Resultado: {result.winner_title}</h2>
             {myVoteId && (
               <p className="text-sm">
                 Tu elección: <b>{myPick?.title ?? "—"}</b> →{" "}

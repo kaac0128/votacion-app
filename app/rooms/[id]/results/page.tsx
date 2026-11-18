@@ -47,7 +47,7 @@ async function ResultsPanel({ roomId }: { roomId: string }) {
   );
 
   return (
-    <div className="flex w-full max-w-3xl flex-col gap-8 px-6 pt-10 pb-24">
+    <div className="flex w-full max-w-5xl flex-col gap-10 px-8 pt-12 pb-32">
       <header>
         <Link href={`/rooms/${roomId}`} className="text-sm text-subtle transition-colors hover:text-body">
           ← Volver a la sala
@@ -77,7 +77,7 @@ async function ResultsPanel({ roomId }: { roomId: string }) {
         <p className="text-sm text-subtle">No hay categorías cargadas todavía.</p>
       )}
 
-      <ul className="flex flex-col gap-4">
+      <ul className="grid gap-4 lg:grid-cols-2 lg:items-start">
         {categories.map((cat) => {
           const catItems = items.filter((i) => i.category_id === cat.id);
           const result = results.find((r) => r.category_id === cat.id);
@@ -87,7 +87,7 @@ async function ResultsPanel({ roomId }: { roomId: string }) {
           const agrees = feedback.find((f) => f.category_id === cat.id && f.attempt === attempt && f.verdict === "agree")?.n ?? "0";
           const dispute = Number(reports) >= reportsNeeded(participants);
           return (
-            <li key={cat.id} className="rounded-xl border border-zinc-800 bg-card p-4">
+            <li key={cat.id} className="rounded-xl border border-line/50 bg-card p-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h3 className="font-semibold">{cat.name}</h3>
                 <span className="text-xs">
@@ -96,7 +96,7 @@ async function ResultsPanel({ roomId }: { roomId: string }) {
                   ) : final ? (
                     <span className="rounded bg-zinc-200 px-2 py-0.5 dark:bg-zinc-700">FINAL</span>
                   ) : dispute ? (
-                    <span className="rounded bg-danger/20 px-2 py-0.5 text-danger">
+                    <span className="rounded bg-red-500/10 px-2 py-0.5 text-danger">
                       EN DISPUTA ({reports}/{reportsNeeded(participants)}) — corrige y republica
                     </span>
                   ) : (

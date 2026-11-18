@@ -9,7 +9,7 @@ Stack: Next.js (App Router) + Supabase (Postgres, Auth custom, Realtime) + Verce
 
 - [x] **0.1** Scaffold Next.js (App Router, TypeScript, Tailwind) en el repo. *(Next 16, Turbopack, Cache Components)*
 - [x] **0.2** Proyecto en Vercel + env vars (DATABASE_URL, AUTH_SECRET). Deploy: https://votacion-app-silk.vercel.app
-- [ ] **0.3** Tema base gamer: dark, acentos neón, tipografía, iconos (lucide), layout mobile-first.
+- [x] **0.3** Tema base gamer: dark, acentos neón, tipografía (Russo One/Chakra Petch), iconos (Phosphor), layout mobile-first + desktop de 2 columnas.
 
 **Hecho cuando:** app "hola mundo" deployada en Vercel con el look base.
 

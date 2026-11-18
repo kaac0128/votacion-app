@@ -28,11 +28,11 @@ function Msg({ state }: { state: ActionState }) {
 }
 
 const inputCls =
-  "w-full rounded-lg border border-zinc-700 bg-zinc-900/80 px-3 py-2 text-body outline-none transition-colors focus:border-primary";
+  "w-full rounded-lg border border-primary/40 bg-zinc-900/80 px-3 py-2 text-body outline-none transition-colors focus:border-primary";
 const btnCls =
   "inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-hover disabled:opacity-50";
 const smallBtnCls =
-  "inline-flex items-center gap-1 rounded-md border border-zinc-700 px-2 py-1 text-xs text-body transition-colors hover:bg-card-hover disabled:opacity-50";
+  "inline-flex items-center gap-1 rounded-md border border-primary/40 px-2 py-1 text-xs text-body transition-colors hover:bg-card-hover disabled:opacity-50";
 
 export function ActionButton({
   action,
@@ -87,7 +87,7 @@ export function BulkCategoriesForm({ roomId }: { roomId: string }) {
       <summary className="inline-flex cursor-pointer items-center gap-1.5 text-sm text-subtle transition-colors hover:text-body">
         <ListPlus className="h-4 w-4" /> Cargar varias categorías de una (una por línea)
       </summary>
-      <form action={action} className="mt-2 flex flex-col gap-2">
+      <form action={action} className="mt-3 flex flex-col gap-2.5">
         <input type="hidden" name="roomId" value={roomId} />
         <textarea
           name="names"
@@ -112,7 +112,7 @@ export function AddItemForm({ roomId, categoryId }: { roomId: string; categoryId
       <summary className="inline-flex cursor-pointer items-center gap-1.5 text-sm text-subtle transition-colors hover:text-body">
         <Plus className="h-4 w-4" /> Agregar objeto uno a uno
       </summary>
-      <form action={action} className="mt-2 flex flex-col gap-2">
+      <form action={action} className="mt-3 flex flex-col gap-2.5">
         <input type="hidden" name="roomId" value={roomId} />
         <input type="hidden" name="categoryId" value={categoryId} />
         <input name="title" placeholder="Título" required maxLength={80} className={inputCls} />
@@ -137,7 +137,7 @@ export function BulkForm({ roomId, categoryId }: { roomId: string; categoryId: s
       <summary className="inline-flex cursor-pointer items-center gap-1.5 text-sm text-subtle transition-colors hover:text-body">
         <ListPlus className="h-4 w-4" /> Carga masiva (pegar lista)
       </summary>
-      <form action={action} className="mt-2 flex flex-col gap-2">
+      <form action={action} className="mt-3 flex flex-col gap-2.5">
         <input type="hidden" name="roomId" value={roomId} />
         <input type="hidden" name="categoryId" value={categoryId} />
         <textarea
@@ -207,12 +207,12 @@ export function ItemRow({
   item: { id: string; title: string; description: string | null; image_url: string | null; is_invalid: boolean };
 }) {
   return (
-    <li className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-zinc-800 bg-card/60 px-3 py-2">
+    <li className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-line/50 bg-card/60 px-3 py-2">
       <span className="min-w-0 flex-1">
         <span className="flex flex-wrap items-center gap-2 font-medium">
           {item.title}
           {item.is_invalid && (
-            <span className="inline-flex items-center gap-1 rounded bg-danger/20 px-1.5 py-0.5 text-xs text-danger">
+            <span className="inline-flex items-center gap-1 rounded bg-red-500/10 px-1.5 py-0.5 text-xs text-danger">
               <Warning weight="fill" className="h-3 w-3" /> inválido: vale 0
             </span>
           )}

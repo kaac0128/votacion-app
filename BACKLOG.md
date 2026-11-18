@@ -75,9 +75,9 @@ Stack: Next.js (App Router) + Supabase (Postgres, Auth custom, Realtime) + Verce
 
 ## Épica 8 — Pulido
 
-- [ ] **8.1** Responsive fino (votante y admin desde el celular).
-- [ ] **8.2** Animaciones e iconos de todas las pantallas.
-- [ ] **8.3** Estados vacíos, errores y mensajes de carga.
+- [x] **8.1** Responsive fino (votante y admin desde el celular).
+- [x] **8.2** Animaciones e iconos de todas las pantallas. *(dark/neón forzado, glow, fade-up, coronita)*
+- [x] **8.3** Estados vacíos, errores y mensajes de carga. *(error.tsx y not-found.tsx gamer)*
 
 **Hecho cuando:** la app se usa completa desde un teléfono sin scroll horizontal ni botones inalcanzables.
 

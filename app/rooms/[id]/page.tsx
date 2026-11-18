@@ -117,9 +117,9 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
   const roomClosed = !votingOpen;
 
   const { rows: categories } = await pool.query<{ id: string; name: string; item_count: number }>(
-    `select c.id, c.name, count(i.id) as item_count
+    `select c.id, c.name, count(ic.item_id) as item_count
        from categories c
-       left join items i on i.category_id = c.id
+       left join item_categories ic on ic.category_id = c.id
       where c.room_id = $1
       group by c.id, c.name, c.sort
       order by c.sort, c.name`,

@@ -51,12 +51,19 @@ create table categories (
 
 create table items (
   id          uuid primary key default gen_random_uuid(),
-  category_id uuid not null references categories(id) on delete cascade,
   title       text not null,
   description text,
   image_url   text,
-  is_invalid  boolean not null default false,  -- siempre vale 0, aviso al votar
-  sort        integer not null default 0
+  is_invalid  boolean not null default false  -- siempre vale 0, aviso al votar
+);
+
+-- Un objeto puede pertenecer a varias categorías de la misma sala
+-- (referencia, no duplicado: el dato se escribe una sola vez en items).
+create table item_categories (
+  item_id     uuid not null references items(id) on delete cascade,
+  category_id uuid not null references categories(id) on delete cascade,
+  sort        integer not null default 0,
+  primary key (item_id, category_id)
 );
 
 create table votes (
@@ -111,6 +118,7 @@ alter table users             enable row level security;
 alter table rooms             enable row level security;
 alter table room_members      enable row level security;
 alter table categories        enable row level security;
+alter table item_categories   enable row level security;
 alter table items             enable row level security;
 alter table votes             enable row level security;
 alter table category_results  enable row level security;
@@ -146,6 +154,7 @@ create trigger trg_vote_window
   for each row execute function check_vote_window();
 
 -- ===== Índices =====
+create index idx_item_categories_cat on item_categories(category_id);
 create index idx_categories_room on categories(room_id);
 create index idx_items_category  on items(category_id);
 create index idx_members_user    on room_members(user_id);

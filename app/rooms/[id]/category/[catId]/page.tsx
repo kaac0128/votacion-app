@@ -53,7 +53,11 @@ async function CategoryVote({
     image_url: string | null;
     is_invalid: boolean;
   }>(
-    "select id, title, description, image_url, is_invalid from items where category_id = $1 order by sort, title",
+    `select i.id, i.title, i.description, i.image_url, i.is_invalid
+       from items i
+       join item_categories ic on ic.item_id = i.id
+      where ic.category_id = $1
+      order by ic.sort, i.title`,
     [categoryId]
   );
 

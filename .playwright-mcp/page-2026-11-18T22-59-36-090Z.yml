@@ -1,0 +1,47 @@
+- generic [ref=f3e1]:
+  - generic [ref=f3e111]:
+    - banner [ref=f3e112]:
+      - link "← Volver a la sala" [ref=f3e113] [cursor=pointer]:
+        - /url: /rooms/9f3d6e2c-f388-446c-923c-723b7f31d469
+      - 'heading "Administrar: Sala Reuse" [level=1] [ref=f3e114]'
+    - generic [ref=f3e115]:
+      - complementary [ref=f3e116]:
+        - generic [ref=f3e117]:
+          - heading "IA para descripciones" [level=3] [ref=f3e118]
+          - generic [ref=f3e121]:
+            - button "Sin IA Descripciones a mano" [ref=f3e122] [cursor=pointer]:
+              - generic [ref=f3e123]: Sin IA
+              - generic [ref=f3e124]: Descripciones a mano
+            - button "Gemini Google AI, gratis" [ref=f3e125] [cursor=pointer]:
+              - generic [ref=f3e126]: Gemini
+              - generic [ref=f3e127]: Google AI, gratis
+            - button "OpenRouter Multi-modelo" [ref=f3e128] [cursor=pointer]:
+              - generic [ref=f3e129]: OpenRouter
+              - generic [ref=f3e130]: Multi-modelo
+          - button "Guardar configuración" [ref=f3e131] [cursor=pointer]
+          - paragraph [ref=f3e134]: La clave se guarda en la base de datos y solo se usa desde el servidor. Nunca viaja al navegador.
+      - generic [ref=f3e135]:
+        - heading "Categorías" [level=2] [ref=f3e136]
+        - generic [ref=f3e137]:
+          - generic [ref=f3e138]:
+            - 'textbox "Nueva categoría (ej: GOTY)" [ref=f3e139]'
+            - button "Agregar" [ref=f3e140] [cursor=pointer]
+          - group [ref=f3e143]:
+            - generic "Cargar varias categorías de una (una por línea)" [ref=f3e144] [cursor=pointer]
+          - paragraph [ref=f3e147]: Categoría "Mejor Multijugador y Cooperativo del Año con Experiencia Compartida Online de Al" creada
+        - generic [ref=f3e150]:
+          - generic [ref=f3e151]:
+            - heading "Mejor Multijugador y Cooperativo del Año con Experiencia Compartida Online de Al (0)" [level=3] [ref=f3e152]:
+              - text: Mejor Multijugador y Cooperativo del Año con Experiencia Compartida Online de Al
+              - generic [ref=f3e153]: (0)
+            - button "Borrar categoría" [ref=f3e155] [cursor=pointer]
+          - group [ref=f3e156]:
+            - generic "Agregar objeto uno a uno" [ref=f3e157] [cursor=pointer]
+          - group [ref=f3e160]:
+            - generic "Carga masiva (pegar lista)" [active] [ref=f3e161] [cursor=pointer]
+            - generic [ref=f3e164]:
+              - 'textbox "Un título por línea: Clair Obscur: Expedition 33 Silksong Hades II" [ref=f3e165]':
+                - /placeholder: "Un título por línea:\nClair Obscur: Expedition 33\nSilksong\nHades II"
+              - button "Cargar y seguir con el carrusel" [ref=f3e166] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=f3e14] [cursor=pointer]
+  - alert [ref=f3e18]: La Corona — votación y apuesta entre amigos

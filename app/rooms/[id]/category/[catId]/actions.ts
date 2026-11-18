@@ -22,7 +22,7 @@ export async function voteItem(formData: FormData): Promise<void> {
   ]);
   if (!member.rows[0]) redirect(`/rooms/${roomId}`);
 
-  const own = await pool.query("select 1 from items where id = $1 and category_id = $2", [itemId, categoryId]);
+  const own = await pool.query("select 1 from item_categories where item_id = $1 and category_id = $2", [itemId, categoryId]);
   if (!own.rows[0]) redirect(`${back}?err=invalid`);
 
   try {

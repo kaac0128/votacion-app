@@ -14,7 +14,7 @@ const inputCls =
 const btnCls =
   "rounded-lg bg-primary px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-hover disabled:opacity-50";
 
-async function Carousel({ roomId, categoryId }: { roomId: string; categoryId: string }) {
+async function Carousel({ roomId, categoryId, msg }: { roomId: string; categoryId: string; msg: string | null }) {
   const user = await getUser();
   if (!user) redirect("/login");
 
@@ -38,7 +38,11 @@ async function Carousel({ roomId, categoryId }: { roomId: string; categoryId: st
     image_url: string | null;
     is_invalid: boolean;
   }>(
-    "select id, title, description, image_url, is_invalid from items where category_id = $1 order by sort, title",
+    `select i.id, i.title, i.description, i.image_url, i.is_invalid
+       from items i
+       join item_categories ic on ic.item_id = i.id
+      where ic.category_id = $1
+      order by ic.sort, i.title`,
     [categoryId]
   );
 
@@ -56,6 +60,12 @@ async function Carousel({ roomId, categoryId }: { roomId: string; categoryId: st
           ← Volver al panel
         </Link>
         <h1 className="font-display text-2xl tracking-wide">Carrusel: {catRows[0].name}</h1>
+      {msg && (
+        <p className="rounded-lg border border-zinc-800 bg-card px-4 py-2 text-sm text-secondary">{msg}</p>
+      )}
+      {msg && (
+        <p className="rounded-lg border border-zinc-800 bg-card px-4 py-2 text-sm text-secondary">{msg}</p>
+      )}
         <p className="text-sm text-subtle">
           Objeto {items.length - pending.length + 1} de {items.length} — quedan {pending.length} sin describir
         </p>
@@ -115,18 +125,31 @@ async function Carousel({ roomId, categoryId }: { roomId: string; categoryId: st
   );
 }
 
-export default function BulkPage({ params }: { params: Promise<{ id: string; catId: string }> }) {
+export default function BulkPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string; catId: string }>;
+  searchParams: Promise<{ msg?: string }>;
+}) {
   return (
     <div className="flex flex-1 flex-col items-center">
       <Suspense fallback={<p className="py-16 text-sm text-subtle">Cargando carrusel...</p>}>
-        <CarouselInner params={params} />
+        <CarouselInner params={params} searchParams={searchParams} />
       </Suspense>
     </div>
   );
 }
 
-async function CarouselInner({ params }: { params: Promise<{ id: string; catId: string }> }) {
+async function CarouselInner({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string; catId: string }>;
+  searchParams: Promise<{ msg?: string }>;
+}) {
   const { id, catId } = await params;
+  const { msg } = await searchParams;
   if (!uuid.test(id) || !uuid.test(catId)) notFound();
-  return <Carousel roomId={id} categoryId={catId} />;
+  return <Carousel roomId={id} categoryId={catId} msg={msg ?? null} />;
 }

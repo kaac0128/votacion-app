@@ -1,0 +1,47 @@
+[      79ms] [LOG] [Fast Refresh] done in 160ms @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[     488ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[     553ms] [LOG] [HMR] connected @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:761
+[    3178ms] [ERROR] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <form> form 
+
+  ...
+    <InnerScrollHandler scrollRef={{...}} renderTree={{...}}>
+      <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+        <LoadingBoundary name="7b0f80fe-2..." loading={null}>
+          <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+            <RedirectBoundary>
+              <RedirectErrorBoundary router={{...}}>
+                <InnerLayoutRouter url="/rooms/9f3..." tree={[...]} params={{id:"9f3d6e...", ...}} renderTree={{...}} ...>
+                  <SegmentViewNode type="page" pagePath="rooms/[id]...">
+                    <SegmentTrieNode>
+                    <BulkPage>
+                      <div className="flex flex-...">
+                        <Suspense fallback={<p>}>
+                          <CarouselInner>
+                            <Carousel>
+                              <div className="flex w-ful...">
+                                <header>
+>                               <form action={function saveBulkItem} className="flex flex-col gap-3">
+                                  <input>
+                                  <input>
+                                  <input>
+                                  <div>
+                                  <div>
+                                  <div>
+                                  <label>
+                                  <div className="flex flex-...">
+                                    <button>
+                                    <button>
+                                    <ActionButton action={function generateDescription} fields={{roomId:"9f...", ...}} ...>
+>                                     <form
+>                                       action={function bound dispatchActionState}
+>                                       className="inline"
+>                                       onSubmit={undefined}
+>                                     >
+                                  ...
+                  ...
+                ...
+      ...
+ @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:1037
+[    3180ms] [ERROR] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. form <form> @ http://localhost:3311/_next/static/chunks/node_modules_next_dist_1bjkg68unqmjx._.js:1037

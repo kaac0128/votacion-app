@@ -1,0 +1,32 @@
+- generic [active] [ref=f3e1]:
+  - generic [ref=f3e68]:
+    - banner [ref=f3e69]:
+      - link "Volver" [ref=f3e70] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f3e73]:
+        - heading "Sala Reuse" [level=1] [ref=f3e74]
+        - generic [ref=f3e75]: Abierta
+      - paragraph [ref=f3e78]: Sin fecha límite
+      - paragraph [ref=f3e79]: "Código de la sala: QNYHPA (compartilo con tus amigos)"
+      - generic [ref=f3e80]:
+        - link "Administrar sala" [ref=f3e81] [cursor=pointer]:
+          - /url: /rooms/9f3d6e2c-f388-446c-923c-723b7f31d469/admin
+        - link "Cargar resultados" [ref=f3e84] [cursor=pointer]:
+          - /url: /rooms/9f3d6e2c-f388-446c-923c-723b7f31d469/results
+    - generic [ref=f3e87]:
+      - generic [ref=f3e88]:
+        - generic [ref=f3e89]:
+          - heading "Puntos" [level=2] [ref=f3e90]
+          - paragraph [ref=f3e93]: Los puntos aparecen cuando el admin publique resultados.
+        - generic [ref=f3e94]:
+          - heading "Categorías" [level=2] [ref=f3e95]
+          - paragraph [ref=f3e98]: Todavía no creaste categorías. Entrá a Administrar sala para cargarlas.
+      - complementary [ref=f3e99]:
+        - generic [ref=f3e100]:
+          - heading "Participantes (1)" [level=2] [ref=f3e101]
+          - list [ref=f3e104]:
+            - listitem [ref=f3e105]:
+              - generic [ref=f3e106]: R
+              - generic [ref=f3e107]: ReuseAdmin
+  - button "Open Next.js Dev Tools" [ref=f3e14] [cursor=pointer]
+  - alert [ref=f3e18]: La Corona

@@ -36,7 +36,11 @@ async function ResultsPanel({ roomId }: { roomId: string }) {
     [roomId]
   );
   const { rows: items } = await pool.query<{ id: string; category_id: string; title: string; is_invalid: boolean }>(
-    "select id, category_id, title, is_invalid from items where category_id in (select id from categories where room_id = $1) order by sort, title",
+    `select i.id, ic.category_id, i.title, i.is_invalid
+       from items i
+       join item_categories ic on ic.item_id = i.id
+      where ic.category_id in (select id from categories where room_id = $1)
+      order by ic.sort, i.title`,
     [roomId]
   );
   const { rows: results } = await pool.query<{ category_id: string; winner_item_id: string; attempt: number; revealed: boolean }>(

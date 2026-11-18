@@ -69,7 +69,7 @@ export function AddCategoryForm({ roomId }: { roomId: string }) {
     <div className="flex flex-col gap-3">
       <form action={action} className="flex flex-wrap items-start gap-2">
         <input type="hidden" name="roomId" value={roomId} />
-        <input name="name" placeholder="Nueva categoría (ej: GOTY)" required minLength={2} maxLength={40} className={`${inputCls} max-w-xs`} />
+        <input name="name" placeholder="Nueva categoría (ej: GOTY)" required minLength={2} maxLength={80} className={`${inputCls} max-w-xs`} />
         <button type="submit" disabled={pending} className={btnCls}>
           <Plus weight="bold" className="h-4 w-4" /> Agregar
         </button>

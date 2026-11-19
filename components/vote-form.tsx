@@ -100,7 +100,7 @@ export default function VoteForm({
                   )}
                 </span>
                 {item.description && (
-                  <p className="text-sm text-subtle">{item.description}</p>
+                  <p className="line-clamp-3 text-sm text-subtle">{item.description}</p>
                 )}
               </span>
             </label>

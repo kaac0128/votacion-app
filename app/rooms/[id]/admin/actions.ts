@@ -287,6 +287,39 @@ export async function deleteItem(_prev: ActionState, formData: FormData): Promis
   return null;
 }
 
+export async function updateItem(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const roomId = String(formData.get("roomId") ?? "");
+  const itemId = String(formData.get("itemId") ?? "");
+  try {
+    await requireAdmin(roomId);
+  } catch {
+    return { error: "Solo el admin puede hacer eso" };
+  }
+  const title = String(formData.get("title") ?? "").trim();
+  const description = String(formData.get("description") ?? "").trim();
+  const imageUrl = String(formData.get("imageUrl") ?? "").trim();
+  const isInvalid = formData.get("isInvalid") === "on";
+  if (title.length < 1 || title.length > 80) return { error: "Título de 1 a 80 caracteres" };
+  if (description.length > 500) return { error: "Descripción de máximo 500 caracteres" };
+  if (imageUrl && !/^https?:\/\/|^data:image\//.test(imageUrl)) return { error: "URL de imagen inválida" };
+
+  const own = await pool.query(
+    `select 1 from item_categories ic
+       join categories c on c.id = ic.category_id
+      where ic.item_id = $1 and c.room_id = $2`,
+    [itemId, roomId]
+  );
+  if (!own.rows[0]) return { error: "Objeto no encontrado" };
+
+  await pool.query(
+    "update items set title = $2, description = $3, image_url = $4, is_invalid = $5 where id = $1",
+    [itemId, title, description || null, imageUrl || null, isInvalid]
+  );
+  revalidatePath(roomPath(roomId) + "/admin");
+  revalidatePath(roomPath(roomId));
+  return { ok: "Cambios guardados" };
+}
+
 // ---- Carga masiva ----
 
 export async function bulkAddItems(_prev: ActionState, formData: FormData): Promise<ActionState> {

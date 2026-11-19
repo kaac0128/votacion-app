@@ -88,7 +88,7 @@ async function Carousel({ roomId, categoryId, msg }: { roomId: string; categoryI
             maxLength={500}
             rows={4}
             placeholder="Breve descripción gamer (podés generarla con IA)"
-            className={inputCls}
+            className={`${inputCls} resize-none`}
           />
         </div>
         <div>

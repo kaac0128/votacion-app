@@ -10,6 +10,7 @@ import {
   deleteItem,
   generateDescription,
   saveAiConfig,
+  updateItem,
   type ActionState,
 } from "@/app/rooms/[id]/admin/actions";
 import { GearSix, ListPlus, Plus, Sparkle, Warning } from "@phosphor-icons/react/dist/ssr";
@@ -116,7 +117,7 @@ export function AddItemForm({ roomId, categoryId }: { roomId: string; categoryId
         <input type="hidden" name="roomId" value={roomId} />
         <input type="hidden" name="categoryId" value={categoryId} />
         <input name="title" placeholder="Título" required maxLength={80} className={inputCls} />
-        <textarea name="description" placeholder="Descripción (opcional)" maxLength={500} rows={2} className={inputCls} />
+        <textarea name="description" placeholder="Descripción (opcional)" maxLength={500} rows={2} className={`${inputCls} resize-none`} />
         <input name="imageUrl" type="url" placeholder="URL de imagen (opcional)" className={inputCls} />
         <label className="flex cursor-pointer items-center gap-2 text-sm">
           <input type="checkbox" name="isInvalid" className="accent-danger" /> Inválido (vale 0 siempre)
@@ -144,7 +145,7 @@ export function BulkForm({ roomId, categoryId }: { roomId: string; categoryId: s
           name="titles"
           placeholder={"Un título por línea:\nClair Obscur: Expedition 33\nSilksong\nHades II"}
           rows={5}
-          className={`${inputCls} text-sm`}
+          className={`${inputCls} resize-none text-sm`}
         />
         <Msg state={state} />
         <button type="submit" disabled={pending} className={btnCls}>
@@ -235,36 +236,80 @@ export function ItemRow({
   categoryId: string;
   item: { id: string; title: string; description: string | null; image_url: string | null; is_invalid: boolean };
 }) {
+  const [state, action, pending] = useActionState(updateItem, null);
   return (
-    <li className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-line/50 bg-card/60 px-3 py-2">
-      <span className="min-w-0 flex-1">
-        <span className="flex flex-wrap items-center gap-2 font-medium">
-          {item.title}
-          {item.is_invalid && (
-            <span className="inline-flex items-center gap-1 rounded bg-red-500/10 px-1.5 py-0.5 text-xs text-danger">
-              <Warning weight="fill" className="h-3 w-3" /> inválido: vale 0
+    <li className="rounded-lg border border-line/50 bg-zinc-900/60">
+      <details>
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2">
+          <span className="min-w-0 flex-1">
+            <span className="flex flex-wrap items-center gap-2 font-medium">
+              {item.title}
+              {item.is_invalid && (
+                <span className="inline-flex items-center gap-1 rounded bg-red-500/10 px-1.5 py-0.5 text-xs text-danger">
+                  <Warning weight="fill" className="h-3 w-3" /> inválido: vale 0
+                </span>
+              )}
             </span>
-          )}
-        </span>
-        {item.description ? (
-          <p className="truncate text-sm text-subtle">{item.description}</p>
-        ) : (
-          <p className="text-xs text-zinc-600">sin descripción</p>
-        )}
-      </span>
-      <span className="flex shrink-0 items-center gap-2">
-        <ActionButton
-          action={generateDescription}
-          fields={{ roomId, itemId: item.id, categoryId }}
-          label="Completar con IA"
-        />
-        <ActionButton
-          action={deleteItem}
-          fields={{ roomId, itemId: item.id, categoryId }}
-          label="Eliminar"
-          confirm={`¿Quitar "${item.title}" de esta categoría?`}
-        />
-      </span>
+            {item.description ? (
+              <p className="line-clamp-1 text-sm text-subtle">{item.description}</p>
+            ) : (
+              <p className="text-xs text-zinc-600">sin descripción</p>
+            )}
+          </span>
+          <span className="shrink-0 text-xs text-subtle">editar</span>
+        </summary>
+
+        <form action={action} className="flex flex-col gap-2.5 border-t border-zinc-800 p-3">
+          <input type="hidden" name="roomId" value={roomId} />
+          <input type="hidden" name="itemId" value={item.id} />
+          <div>
+            <label htmlFor={`t-${item.id}`} className="mb-1 block text-xs text-subtle">Título</label>
+            <input id={`t-${item.id}`} name="title" defaultValue={item.title} required maxLength={80} className={inputCls} />
+          </div>
+          <div>
+            <label htmlFor={`d-${item.id}`} className="mb-1 block text-xs text-subtle">Descripción (máx 500)</label>
+            <textarea
+              id={`d-${item.id}`}
+              name="description"
+              defaultValue={item.description ?? ""}
+              rows={3}
+              maxLength={500}
+              className={`${inputCls} resize-none`}
+            />
+          </div>
+          <div>
+            <label htmlFor={`i-${item.id}`} className="mb-1 block text-xs text-subtle">URL de imagen</label>
+            <input
+              id={`i-${item.id}`}
+              name="imageUrl"
+              defaultValue={item.image_url?.startsWith("data:") ? "" : item.image_url ?? ""}
+              placeholder={item.image_url?.startsWith("data:") ? "imagen generada por IA" : "https://..."}
+              className={inputCls}
+            />
+          </div>
+          <label className="flex cursor-pointer items-center gap-2 text-sm">
+            <input type="checkbox" name="isInvalid" defaultChecked={item.is_invalid} className="accent-danger" /> Inválido (vale 0 siempre)
+          </label>
+          <Msg state={state} />
+          <button type="submit" disabled={pending} className={btnCls}>
+            {pending ? "..." : "Guardar cambios"}
+          </button>
+        </form>
+
+        <div className="flex flex-wrap items-center gap-2 border-t border-zinc-800 p-3">
+          <ActionButton
+            action={generateDescription}
+            fields={{ roomId, itemId: item.id, categoryId }}
+            label="Completar con IA"
+          />
+          <ActionButton
+            action={deleteItem}
+            fields={{ roomId, itemId: item.id, categoryId }}
+            label="Eliminar"
+            confirm={`¿Quitar "${item.title}" de esta categoría?`}
+          />
+        </div>
+      </details>
     </li>
   );
 }

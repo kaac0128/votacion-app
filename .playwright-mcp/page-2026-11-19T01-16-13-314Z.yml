@@ -1,0 +1,42 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - heading "La Corona" [level=1] [ref=f1e7]
+      - paragraph [ref=f1e8]: Votá, apostá y coroná al ganador
+    - generic [ref=f1e20]:
+      - generic [ref=f1e21]:
+        - heading "Mis salas (1)" [level=2] [ref=f1e22]
+        - list [ref=f1e23]:
+          - listitem [ref=f1e24]:
+            - link "QA Grid sin fecha límite Abierta" [ref=f1e25] [cursor=pointer]:
+              - /url: /rooms/b8a6fdd4-c2b7-4718-8784-49d4874432c8
+              - generic [ref=f1e26]:
+                - generic [ref=f1e27]:
+                  - generic "Sos el admin" [ref=f1e28]
+                  - text: QA Grid
+                - generic [ref=f1e31]: sin fecha límite
+              - generic [ref=f1e32]: Abierta
+      - complementary [ref=f1e37]:
+        - generic [ref=f1e38]:
+          - heading "Crear sala" [level=2] [ref=f1e39]
+          - generic [ref=f1e42]:
+            - generic [ref=f1e43]: Título
+            - textbox "Título" [ref=f1e44]:
+              - /placeholder: GOTY 2026
+          - generic [ref=f1e45]:
+            - generic [ref=f1e46]: Tema (contexto)
+            - textbox "Tema (contexto)" [ref=f1e47]:
+              - /placeholder: Game Awards 2026
+          - generic [ref=f1e48]:
+            - generic [ref=f1e49]: Fecha límite de votación (opcional)
+            - textbox "Fecha límite de votación (opcional)" [ref=f1e50]
+          - button "Crear sala" [ref=f1e51] [cursor=pointer]
+        - generic [ref=f1e52]:
+          - heading "Entrar con código" [level=2] [ref=f1e53]
+          - textbox "ABC123" [ref=f1e56]
+          - button "Entrar a la sala" [ref=f1e57] [cursor=pointer]
+        - generic [ref=f1e58]:
+          - generic [ref=f1e59]: QAAdmin2
+          - button "Cerrar sesión" [ref=f1e62] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=f1e15] [cursor=pointer]
+  - alert [ref=f1e19]

@@ -1,0 +1,19 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - heading "La Corona" [level=1] [ref=e7]
+      - paragraph [ref=e8]: Votá, apostá y coroná al ganador
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: Nombre
+        - textbox "Nombre" [ref=e22]
+      - generic [ref=e23]:
+        - generic [ref=e24]: Contraseña
+        - textbox "Contraseña" [ref=e25]
+      - button "Entrar" [ref=e26] [cursor=pointer]
+      - paragraph [ref=e27]:
+        - text: ¿No tenés cuenta?
+        - link "Registrate" [ref=e28] [cursor=pointer]:
+          - /url: /register
+  - button "Open Next.js Dev Tools" [ref=e14] [cursor=pointer]
+  - alert [ref=e18]

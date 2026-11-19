@@ -179,6 +179,7 @@ export function AiConfigForm({
         <Sparkle weight="fill" className="h-4 w-4" /> IA para descripciones
       </h3>
       <input type="hidden" name="provider" value={selected} />
+      <input type="hidden" name="roomId" value={roomId} />
       <div className="grid grid-cols-3 gap-2">
         {options.map((opt) => (
           <button
@@ -206,7 +207,6 @@ export function AiConfigForm({
             placeholder={hasKey ? "•••••••• (guardada — dejar vacío para mantener)" : "API key"}
             className={inputCls}
           />
-          <input name="model" placeholder="Modelo (opcional)" defaultValue={model ?? ""} className={inputCls} />
         </div>
       )}
       <Msg state={state} />
@@ -250,13 +250,13 @@ export function ItemRow({
         <ActionButton
           action={generateDescription}
           fields={{ roomId, itemId: item.id, categoryId }}
-          label="Descripción IA"
+          label="Completar con IA"
         />
         <ActionButton
           action={deleteItem}
-          fields={{ roomId, itemId: item.id }}
+          fields={{ roomId, itemId: item.id, categoryId }}
           label="Eliminar"
-          confirm={`¿Eliminar "${item.title}"?`}
+          confirm={`¿Quitar "${item.title}" de esta categoría?`}
         />
       </span>
     </li>

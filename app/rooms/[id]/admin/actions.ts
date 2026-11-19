@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { pool } from "@/lib/db";
 import { getUser } from "@/lib/auth";
-import { generateAiDescription } from "@/lib/ai";
+import { generateAiContent } from "@/lib/ai";
 
 export type ActionState = { error?: string; ok?: string } | null;
 
@@ -29,7 +29,8 @@ export async function saveAiConfig(_prev: ActionState, formData: FormData): Prom
   const roomId = String(formData.get("roomId") ?? "");
   try {
     await requireAdmin(roomId);
-  } catch {
+  } catch (e) {
+    console.error("[saveAiConfig] requireAdmin falló:", e);
     return { error: "Solo el admin puede hacer eso" };
   }
   const provider = String(formData.get("provider") ?? "");
@@ -74,7 +75,7 @@ export async function generateDescription(_prev: ActionState, formData: FormData
   );
   if (!rows[0]) return { error: "Objeto no encontrado" };
   try {
-    const description = await generateAiDescription({
+    const content = await generateAiContent({
       provider: admin.room.ai_provider as "gemini" | "openrouter",
       key: admin.room.ai_key,
       model: admin.room.ai_model,
@@ -82,10 +83,13 @@ export async function generateDescription(_prev: ActionState, formData: FormData
       category: rows[0].category,
       title: rows[0].title,
     });
-    await pool.query("update items set description = $2 where id = $1", [itemId, description]);
+    await pool.query(
+      "update items set description = $2, image_url = coalesce($3, image_url) where id = $1",
+      [itemId, content.description, content.image_url]
+    );
     revalidatePath(roomPath(roomId) + "/admin");
     revalidatePath(`${roomPath(roomId)}/bulk/${formData.get("categoryId") ?? ""}`);
-    return { ok: "Descripción generada" };
+    return { ok: content.image_url?.startsWith("data:") ? "Descripción y portada generadas" : "Descripción generada" };
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Error de IA" };
   }

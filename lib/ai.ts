@@ -80,11 +80,11 @@ export async function generateAiContent(opts: {
   if (opts.provider === "gemini") {
     // 1er intento: descripción + portada en un solo pedido
     try {
-      return await geminiTextAndCover(opts.key, opts.model?.trim() || "gemini-2.0-flash-preview-image-generation", prompt, opts.title);
+      return await geminiTextAndCover(opts.key, opts.model?.trim() || "gemini-3.5-flash-lite", prompt, opts.title);
     } catch {
       // si el modelo de imagen no está disponible, cae a solo texto
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${opts.model?.trim() || "gemini-flash-latest"}:generateContent`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${opts.model?.trim() || "gemini-3.5-flash-lite"}:generateContent`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-goog-api-key": opts.key },

@@ -1,8 +1,0 @@
-- generic [active] [ref=f3e1]:
-  - generic [ref=f3e29]:
-    - generic [ref=f3e30]:
-      - heading "La Corona" [level=1] [ref=f3e34]
-      - paragraph [ref=f3e35]: Votá, apostá y coroná al ganador
-    - paragraph [ref=f3e36]: Cargando...
-  - button "Open Next.js Dev Tools" [ref=f3e14] [cursor=pointer]
-  - alert [ref=f3e18]: La Corona

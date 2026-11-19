@@ -13,6 +13,7 @@ import {
   ItemRow,
   ActionButton,
 } from "@/components/admin-forms";
+import AdminCategoryBrowser from "@/components/admin-category-browser";
 import { deleteCategory } from "./actions";
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -67,33 +68,40 @@ async function AdminPanel({ roomId }: { roomId: string }) {
           <h2 className="border-b border-line/50 pb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Categorías</h2>
           <AddCategoryForm roomId={roomId} />
 
-          {categories.map((cat) => {
-            const catItems = items.filter((i) => i.category_id === cat.id);
-            return (
-              <div key={cat.id} className="rounded-xl border border-line/50 bg-card p-5">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="font-semibold">
-                    {cat.name} <span className="text-sm font-normal text-subtle">({catItems.length})</span>
-                  </h3>
-                  <ActionButton
-                    action={deleteCategory}
-                    fields={{ roomId, categoryId: cat.id }}
-                    label="Borrar categoría"
-                    confirm={`¿Borrar la categoría "${cat.name}" y todos sus objetos?`}
-                  />
+          <AdminCategoryBrowser
+            categories={categories.map((cat) => ({
+              id: cat.id,
+              name: cat.name,
+              count: items.filter((i) => i.category_id === cat.id).length,
+            }))}
+            panels={categories.map((cat) => {
+              const catItems = items.filter((i) => i.category_id === cat.id);
+              return (
+                <div key={cat.id} className="rounded-xl border border-line/50 bg-card p-5">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-semibold">
+                      {cat.name} <span className="text-sm font-normal text-subtle">({catItems.length})</span>
+                    </h3>
+                    <ActionButton
+                      action={deleteCategory}
+                      fields={{ roomId, categoryId: cat.id }}
+                      label="Borrar categoría"
+                      confirm={`¿Borrar la categoría "${cat.name}" y todos sus objetos?`}
+                    />
+                  </div>
+                  {catItems.length > 0 && (
+                    <ul className="mt-3 flex flex-col gap-2">
+                      {catItems.map((item) => (
+                        <ItemRow key={item.id} roomId={roomId} categoryId={cat.id} item={item} />
+                      ))}
+                    </ul>
+                  )}
+                  <AddItemForm roomId={roomId} categoryId={cat.id} />
+                  <BulkForm roomId={roomId} categoryId={cat.id} />
                 </div>
-                {catItems.length > 0 && (
-                  <ul className="mt-3 flex flex-col gap-2">
-                    {catItems.map((item) => (
-                      <ItemRow key={item.id} roomId={roomId} categoryId={cat.id} item={item} />
-                    ))}
-                  </ul>
-                )}
-                <AddItemForm roomId={roomId} categoryId={cat.id} />
-                <BulkForm roomId={roomId} categoryId={cat.id} />
-              </div>
-            );
-          })}
+              );
+            })}
+          />
         </section>
       </div>
     </div>

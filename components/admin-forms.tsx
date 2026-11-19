@@ -204,7 +204,13 @@ export function AiConfigForm({
           <input
             name="key"
             type="password"
-            placeholder={hasKey ? "•••••••• (guardada — dejar vacío para mantener)" : "API key"}
+            placeholder={
+              selected === (provider ?? "")
+                ? hasKey
+                  ? "•••••••• (guardada — dejar vacío para mantener)"
+                  : "API key"
+                : `API key de ${selected === "gemini" ? "Gemini" : "OpenRouter"} (cambio de proveedor)`
+            }
             className={inputCls}
           />
         </div>

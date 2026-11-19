@@ -27,26 +27,40 @@ function roomPath(roomId: string): string {
 
 export async function saveAiConfig(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const roomId = String(formData.get("roomId") ?? "");
+  let prevProvider: string | null = null;
+  let prevKey: string | null = null;
   try {
-    await requireAdmin(roomId);
+    const room = await requireAdmin(roomId);
+    prevProvider = room.room.ai_provider;
+    prevKey = room.room.ai_key;
   } catch (e) {
     console.error("[saveAiConfig] requireAdmin falló:", e);
     return { error: "Solo el admin puede hacer eso" };
   }
   const provider = String(formData.get("provider") ?? "");
   const key = String(formData.get("key") ?? "").trim();
-  const model = String(formData.get("model") ?? "").trim();
   if (provider && provider !== "gemini" && provider !== "openrouter") {
     return { error: "Proveedor inválido" };
   }
   if (key && key.length > 300) return { error: "Clave demasiado larga" };
+
+  // sin proveedor: conserva la key por si vuelven a activar la IA
+  // cambio de proveedor sin key nueva: no hereda la del otro (serían claves cruzadas)
+  let finalKey = prevKey;
+  if (provider) {
+    if (key) finalKey = key;
+    else if (provider !== prevProvider || !prevKey) {
+      return { error: `Pegá la API key de ${provider === "gemini" ? "Gemini" : "OpenRouter"} para activarlo` };
+    }
+  }
+
   await pool.query(
     `update rooms set
        ai_provider = $2,
-       ai_key = case when $3::text = '' then ai_key else $3 end,
-       ai_model = $4
+       ai_key = case when $2::text is null then null else $3 end,
+       ai_model = null
      where id = $1`,
-    [roomId, provider || null, key, model || null]
+    [roomId, provider || null, finalKey]
   );
   revalidatePath(roomPath(roomId) + "/admin");
   return { ok: key ? "Configuración guardada" : "Configuración guardada (clave anterior mantenida)" };

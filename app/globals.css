@@ -31,11 +31,21 @@
   --font-mono: var(--font-chakra);
 }
 
+html {
+  background-color: var(--background);
+}
+
 body {
   background:
-    radial-gradient(1100px 500px at 85% -10%, rgba(124, 58, 237, 0.22), transparent 60%),
-    radial-gradient(900px 500px at 5% 110%, rgba(244, 63, 94, 0.12), transparent 60%),
+    linear-gradient(
+      180deg,
+      rgba(124, 58, 237, 0.18) 0%,
+      rgba(124, 58, 237, 0.04) 35%,
+      rgba(15, 15, 35, 0) 55%,
+      rgba(244, 63, 94, 0.08) 100%
+    ),
     var(--background);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-chakra), Arial, sans-serif;
 }

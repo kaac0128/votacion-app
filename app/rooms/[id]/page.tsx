@@ -11,6 +11,7 @@ import { CreateRoomForm, JoinRoomForm } from "@/components/room-forms";
 import { ActionButton } from "@/components/admin-forms";
 import { TiebreakStart, TiebreakPick } from "@/components/tiebreak";
 import AutoRefresh from "@/components/auto-refresh";
+import Paginated from "@/components/paginated";
 import { requestReopen, supportReopen, adminReopen } from "./reopen/actions";
 import {
   ArrowLeft,
@@ -357,19 +358,18 @@ async function RoomDetail({ params }: { params: Promise<{ id: string }> }) {
                   : "El admin todavía no cargó categorías."}
               </p>
             ) : (
-              <ul className="flex flex-col gap-2">
+              <Paginated perPage={10} className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
                 {categories.map((c) => (
-                  <li key={c.id}>
-                    <Link
-                      href={`/rooms/${room.id}/category/${c.id}`}
-                      className="flex items-center justify-between rounded-xl border border-line/50 bg-card px-5 py-4 transition-colors hover:border-primary"
-                    >
-                      <span className="font-medium">{c.name}</span>
-                      <span className="text-sm text-subtle">{c.item_count} nominados →</span>
-                    </Link>
-                  </li>
+                  <Link
+                    key={c.id}
+                    href={`/rooms/${room.id}/category/${c.id}`}
+                    className="flex h-24 flex-col items-center justify-center gap-1 rounded-xl border border-line/50 bg-card p-3 text-center transition-colors hover:border-primary"
+                  >
+                    <span className="line-clamp-2 text-sm font-medium leading-tight text-body">{c.name}</span>
+                    <span className="text-xs text-subtle">{c.item_count} nominados</span>
+                  </Link>
                 ))}
-              </ul>
+              </Paginated>
             )}
           </section>
         </div>
